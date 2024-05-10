@@ -9,19 +9,126 @@ class DoctoresScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       backgroundColor: Colors.grey.shade100,
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: const Text(name),
       ),
-      body: const Column(
+      body: Column(
         children: [
-          AddContainer(),
-          SizedBox(height: 13,),
-          
+          const AddContainer(),
+
+          const SizedBox(height: 13,),
+
+          SizedBox(
+            height: 300,
+            child: ListView.builder(
+              itemCount: 7,
+              itemBuilder: (BuildContext context, int index) {
+                if (index == 0) {
+                return const TableHeaders();
+                }
+                return const TableRows();
+              },
+            ),
+          ),
         ],
       ),
+    );
+  }
+}
+
+class TableHeaders extends StatelessWidget {
+  const TableHeaders({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+
+    final textStyle = Theme.of(context).textTheme;
+
+    return Table(
+      border: TableBorder.all(width: 0.95),
+      children: [
+        TableRow(
+          decoration: BoxDecoration(color: Colors.deepPurple.shade100),
+          children: [
+            TableCell(child: Padding(
+              padding: const EdgeInsets.all(6.0),
+              child: Text("Nombre", style: textStyle.titleLarge),
+            )),
+            TableCell(child: Padding(
+              padding: const EdgeInsets.all(6.0),
+              child: Text("Apellido", style: textStyle.titleLarge,),
+            )),
+            TableCell(child: Padding(
+              padding: const EdgeInsets.all(6.0),
+              child: Text("Especialidad", style: textStyle.titleLarge,),
+            )),
+            TableCell(child: Padding(
+              padding: const EdgeInsets.all(6.0),
+              child: Text("Acciones", style: textStyle.titleLarge,),
+            )),
+          ]
+        )
+      ],
+    );
+  }
+}
+
+class TableRows extends StatelessWidget {
+  const TableRows({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+
+    final textStyle = Theme.of(context).textTheme;
+
+    return Table(
+      border: TableBorder.all(width: 0.85),
+      children: [
+        TableRow(
+          children: [
+            TableCell(verticalAlignment: TableCellVerticalAlignment.middle, 
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 7),
+                child: Text("Mariana", style: textStyle.bodyLarge,),
+              ),
+            ),
+            TableCell(verticalAlignment: TableCellVerticalAlignment.middle, 
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 7),
+                child: Text("Cázarez", style: textStyle.bodyLarge,),
+              )
+            ),
+            TableCell(verticalAlignment: TableCellVerticalAlignment.middle, 
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 7),
+                child: Text("Gastroenterología", style: textStyle.bodyLarge,),
+              )
+            ),
+            TableCell(
+              child: Row(
+                children: [
+
+                  Padding(
+                    padding: const EdgeInsets.all(7.0),
+                    child: IconButton.filled(onPressed: () {}, icon: const Icon(Icons.edit_rounded)),
+                  ),
+
+                  IconButton.filled(onPressed: () {}, icon: const Icon(Icons.delete_forever_rounded)),
+
+                ],
+              )
+            ),
+          ]
+        )
+      ],
     );
   }
 }
