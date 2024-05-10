@@ -1,4 +1,4 @@
-import 'package:agenda/presentation/widgets/add_dialogs.dart';
+import 'package:agenda/presentation/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
 class DoctoresScreen extends StatelessWidget {
@@ -128,7 +128,9 @@ class TableRows extends StatelessWidget {
                     child: IconButton.filled(onPressed: () {}, icon: const Icon(Icons.edit_rounded)),
                   ),
 
-                  IconButton.filled(onPressed: () {}, icon: const Icon(Icons.delete_forever_rounded)),
+                  IconButton.filled(onPressed: () {
+                    DeleteDialogs.deleteDoctorDialog(context);
+                  }, icon: const Icon(Icons.delete_forever_rounded)),
 
                 ],
               )
