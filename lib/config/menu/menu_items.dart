@@ -10,10 +10,11 @@ class MenuItem{
 }
 
 const appMenuItems = <MenuItem>[
+
   MenuItem(
-    title: "Citas", 
-    link: "/citas", 
-    icon: Icons.add
+    title: "Doctores",  
+    link: "/doctores", 
+    icon: Icons.credit_card
   ),
 
   MenuItem(
@@ -21,11 +22,11 @@ const appMenuItems = <MenuItem>[
     link: "/pacientes", 
     icon: Icons.smart_button_outlined
   ),
-  
+
   MenuItem(
-    title: "Doctores",  
-    link: "/doctores", 
-    icon: Icons.credit_card
+    title: "Citas", 
+    link: "/citas", 
+    icon: Icons.add
   ),
 
   MenuItem(
