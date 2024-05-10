@@ -173,7 +173,7 @@ class _AddContainer extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 7, horizontal: 13),
               child: FilledButton.icon(
                 onPressed: () {
-                  AddDialogs.newDoctorDialog(context);
+                  AddDialogs.newEspecialidadDialog(context);
                 }, 
                 icon: const Icon(Icons.add_circle_outline_rounded),
                 label: const Text("Añadir nueva especialidad")
