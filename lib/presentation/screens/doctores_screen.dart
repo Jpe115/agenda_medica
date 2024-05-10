@@ -16,25 +16,32 @@ class DoctoresScreen extends StatelessWidget {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: const Text(name),
       ),
-      body: Column(
-        children: [
-          const AddContainer(),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            const AddContainer(),
 
-          const SizedBox(height: 13,),
+            const SizedBox(height: 13,),
 
-          SizedBox(
-            height: 300,
-            child: ListView.builder(
-              itemCount: 7,
-              itemBuilder: (BuildContext context, int index) {
-                if (index == 0) {
-                return const TableHeaders();
-                }
-                return const TableRows();
-              },
+            SizedBox(
+              height: 560,
+              child: Padding(
+                padding: const EdgeInsets.all(14.0),
+                child: ListView.builder(
+                  itemCount: 10,
+                  itemBuilder: (BuildContext context, int index) {
+                    if (index == 0) {
+                    return const TableHeaders();
+                    }
+                    return const TableRows();
+                  },
+                ),
+              ),
             ),
-          ),
-        ],
+
+            Container(color: Colors.amber, height: 70,)
+          ],
+        ),
       ),
     );
   }
@@ -97,7 +104,7 @@ class TableRows extends StatelessWidget {
             TableCell(verticalAlignment: TableCellVerticalAlignment.middle, 
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 7),
-                child: Text("Mariana", style: textStyle.bodyLarge,),
+                child: Text("Mario", style: textStyle.bodyLarge,),
               ),
             ),
             TableCell(verticalAlignment: TableCellVerticalAlignment.middle, 
