@@ -14,25 +14,25 @@ const appMenuItems = <MenuItem>[
   MenuItem(
     title: "Doctores",  
     link: "/doctores", 
-    icon: Icons.credit_card
+    icon: Icons.health_and_safety
   ),
 
   MenuItem(
     title: "Pacientes", 
     link: "/pacientes", 
-    icon: Icons.smart_button_outlined
+    icon: Icons.people
   ),
 
   MenuItem(
     title: "Citas", 
     link: "/citas", 
-    icon: Icons.add
+    icon: Icons.alarm
   ),
 
   MenuItem(
     title: "Especialidades", 
     link: "/especialidades", 
-    icon: Icons.refresh_outlined
+    icon: Icons.headset
   ),
 
 ];
