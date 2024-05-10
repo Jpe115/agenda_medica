@@ -1,3 +1,4 @@
+import 'package:agenda/presentation/widgets/side_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:agenda/presentation/widgets/widgets.dart';
 
@@ -9,7 +10,11 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final scaffoldKey = GlobalKey<ScaffoldState>();
+
     return Scaffold(
+      key: scaffoldKey,
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: const Text(name),
@@ -28,6 +33,7 @@ class HomeScreen extends StatelessWidget {
           ],
         ),
       ),
+      drawer: SideMenu(scaffoldKey: scaffoldKey,),
     );
   }
 }
