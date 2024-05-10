@@ -24,9 +24,9 @@ class DoctoresScreen extends StatelessWidget {
             const SizedBox(height: 13,),
 
             SizedBox(
-              height: 554,
+              height: 531,
               child: Padding(
-                padding: const EdgeInsets.all(14.0),
+                padding: const EdgeInsets.symmetric(horizontal: 14),
                 child: ListView.builder(
                   itemCount: 10,
                   itemBuilder: (BuildContext context, int index) {
@@ -40,7 +40,6 @@ class DoctoresScreen extends StatelessWidget {
             ),
 
             Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 14),
@@ -49,7 +48,7 @@ class DoctoresScreen extends StatelessWidget {
                 const Spacer(),
                 TextButton(onPressed: () {}, child: const Text("Anterior")),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 14),
+                  padding: const EdgeInsets.symmetric(horizontal: 12),
                   child: TextButton(onPressed: () {}, child: const Text("Siguiente")),
                 ),
               ],
