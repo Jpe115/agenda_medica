@@ -8,6 +8,12 @@ class PacientesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        title: const Text(name),
+      ),
+      body: const Placeholder(),
+    );
   }
 }
