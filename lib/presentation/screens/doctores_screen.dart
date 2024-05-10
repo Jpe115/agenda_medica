@@ -24,7 +24,7 @@ class DoctoresScreen extends StatelessWidget {
             const SizedBox(height: 13,),
 
             SizedBox(
-              height: 560,
+              height: 554,
               child: Padding(
                 padding: const EdgeInsets.all(14.0),
                 child: ListView.builder(
@@ -37,6 +37,22 @@ class DoctoresScreen extends StatelessWidget {
                   },
                 ),
               ),
+            ),
+
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 14),
+                  child: Text("Mostrando registros del 1 al 10, del total de 10"),
+                ),
+                const Spacer(),
+                TextButton(onPressed: () {}, child: const Text("Anterior")),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 14),
+                  child: TextButton(onPressed: () {}, child: const Text("Siguiente")),
+                ),
+              ],
             ),
 
             Container(color: Colors.amber, height: 70,)
@@ -168,7 +184,7 @@ class AddContainer extends StatelessWidget {
                 onPressed: () {
                   AddDialogs.newDoctorDialog(context);
                 }, 
-                icon: const Icon(Icons.add_moderator_rounded),
+                icon: const Icon(Icons.add_circle_outline_rounded),
                 label: const Text("Añadir nuevo doctor")
               ),
             )
