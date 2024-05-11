@@ -1,18 +1,37 @@
+import 'package:agenda/domain/entities/especialidad.dart';
+import 'package:agenda/presentation/providers/especialidades/especialidades_provider.dart';
 import 'package:agenda/presentation/widgets/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class EspecialidadesScreen extends StatelessWidget {
+class EspecialidadesScreen extends ConsumerStatefulWidget {
 
   static const name = "especialidades_screen";
 
   const EspecialidadesScreen({super.key});
 
   @override
+  EspecialidadesScreenState createState() => EspecialidadesScreenState();
+}
+
+class EspecialidadesScreenState extends ConsumerState<EspecialidadesScreen> {
+
+  @override
+  void initState() {
+    super.initState();
+
+    ref.read(especialidadesProvider.notifier).loadAllEspecialidades();
+  }
+
+  @override
   Widget build(BuildContext context) {
+
+    final especialidades = ref.watch(especialidadesProvider);
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text(name),
+        title: const Text(EspecialidadesScreen.name),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -26,12 +45,13 @@ class EspecialidadesScreen extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 14),
                 child: ListView.builder(
-                  itemCount: 10,
+                  itemCount: especialidades.length + 1,
                   itemBuilder: (BuildContext context, int index) {
+                    print(especialidades);
                     if (index == 0) {
                     return const _TableHeaders();
                     }
-                    return const _TableRows();
+                    return _TableRows(especialidad: especialidades[index - 1],);
                   },
                 ),
               ),
@@ -84,10 +104,6 @@ class _TableHeaders extends StatelessWidget {
             )),
             TableCell(child: Padding(
               padding: const EdgeInsets.all(6.0),
-              child: Text("Doctor asociado", style: textStyle.titleLarge,),
-            )),
-            TableCell(child: Padding(
-              padding: const EdgeInsets.all(6.0),
               child: Text("Acciones", style: textStyle.titleLarge,),
             )),
           ]
@@ -97,9 +113,17 @@ class _TableHeaders extends StatelessWidget {
   }
 }
 
-class _TableRows extends StatelessWidget {
-  const _TableRows();
+class _TableRows extends StatefulWidget {
 
+  final Especialidad especialidad;
+
+  const _TableRows({required this.especialidad});
+
+  @override
+  State<_TableRows> createState() => _TableRowsState();
+}
+
+class _TableRowsState extends State<_TableRows> {
   @override
   Widget build(BuildContext context) {
 
@@ -113,19 +137,13 @@ class _TableRows extends StatelessWidget {
             TableCell(verticalAlignment: TableCellVerticalAlignment.middle, 
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 7),
-                child: Text("1", style: textStyle.bodyLarge,),
+                child: Text(widget.especialidad.id.toString(), style: textStyle.bodyLarge,),
               ),
             ),
             TableCell(verticalAlignment: TableCellVerticalAlignment.middle, 
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 7),
-                child: Text("Medicina General", style: textStyle.bodyLarge,),
-              )
-            ),
-            TableCell(verticalAlignment: TableCellVerticalAlignment.middle, 
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 7),
-                child: Text("Mario Cázarez", style: textStyle.bodyLarge,),
+                child: Text(widget.especialidad.nombreEspecialidad, style: textStyle.bodyLarge,),
               )
             ),
             TableCell(
