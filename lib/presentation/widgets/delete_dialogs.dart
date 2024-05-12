@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class DeleteDialogs {
 
-  static Future<dynamic> deleteDoctorDialog(BuildContext context, int doctorId) {
+  static Future<dynamic> deleteDoctorDialog(BuildContext context, WidgetRef ref, int doctorId) {
     return showDialog(context: context, 
       builder: (context) {
         return(AlertDialog(
@@ -28,7 +28,7 @@ class DeleteDialogs {
     );
   }
   
-  static Future<dynamic> deleteEspecialidadDialog(BuildContext context, int especialidadId, WidgetRef ref) {
+  static Future<dynamic> deleteEspecialidadDialog(BuildContext context, WidgetRef ref, int especialidadId) {
     return showDialog(context: context, 
       builder: (context) {
         return(AlertDialog(
@@ -53,7 +53,7 @@ class DeleteDialogs {
     );
   }
   
-  static Future<dynamic> deletePacienteDialog(BuildContext context, int pacienteId) {
+  static Future<dynamic> deletePacienteDialog(BuildContext context, WidgetRef ref, int pacienteId) {
     return showDialog(context: context, 
       builder: (context) {
         return(AlertDialog(
