@@ -1,18 +1,37 @@
+import 'package:agenda/domain/entities/paciente.dart';
+import 'package:agenda/presentation/providers/pacientes/pacientes_provider.dart';
 import 'package:agenda/presentation/widgets/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class PacientesScreen extends StatelessWidget {
+class PacientesScreen extends ConsumerStatefulWidget {
 
   static const name = "pacientes_screen";
 
   const PacientesScreen({super.key});
 
   @override
+  PacientesScreenState createState() => PacientesScreenState();
+}
+
+class PacientesScreenState extends ConsumerState<PacientesScreen> {
+
+  @override
+  void initState() {
+    super.initState();
+
+    ref.read(pacientesProvider.notifier).loadAllPacientes();
+  }
+
+  @override
   Widget build(BuildContext context) {
+
+    final pacientes = ref.watch(pacientesProvider);
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text(name),
+        title: const Text(PacientesScreen.name),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -26,12 +45,12 @@ class PacientesScreen extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 14),
                 child: ListView.builder(
-                  itemCount: 10,
+                  itemCount: pacientes.length + 1,
                   itemBuilder: (BuildContext context, int index) {
                     if (index == 0) {
                     return const _TableHeaders();
                     }
-                    return const _TableRows();
+                    return _TableRows(paciente: pacientes[index - 1],);
                   },
                 ),
               ),
@@ -105,9 +124,16 @@ class _TableHeaders extends StatelessWidget {
   }
 }
 
-class _TableRows extends StatelessWidget {
-  const _TableRows();
+class _TableRows extends StatefulWidget {
 
+  final Paciente paciente;
+  const _TableRows({required this.paciente});
+
+  @override
+  State<_TableRows> createState() => _TableRowsState();
+}
+
+class _TableRowsState extends State<_TableRows> {
   @override
   Widget build(BuildContext context) {
 
@@ -121,31 +147,31 @@ class _TableRows extends StatelessWidget {
             TableCell(verticalAlignment: TableCellVerticalAlignment.middle, 
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 7),
-                child: Text("Josué", style: textStyle.bodyLarge,),
+                child: Text(widget.paciente.nombre, style: textStyle.bodyLarge,),
               ),
             ),
             TableCell(verticalAlignment: TableCellVerticalAlignment.middle, 
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 7),
-                child: Text("Palafox Encinas", style: textStyle.bodyLarge,),
+                child: Text(widget.paciente.apellidos, style: textStyle.bodyLarge,),
               )
             ),
             TableCell(verticalAlignment: TableCellVerticalAlignment.middle, 
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 7),
-                child: Text("23", style: textStyle.bodyLarge,),
+                child: Text(widget.paciente.edad.toString(), style: textStyle.bodyLarge,),
               )
             ),
             TableCell(verticalAlignment: TableCellVerticalAlignment.middle, 
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 7),
-                child: Text("6531088628", style: textStyle.bodyLarge,),
+                child: Text(widget.paciente.telefono, style: textStyle.bodyLarge,),
               )
             ),
             TableCell(verticalAlignment: TableCellVerticalAlignment.middle, 
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 7),
-                child: Text("jpalafoxe90@gmail.com", style: textStyle.bodyLarge,),
+                child: Text(widget.paciente.correo, style: textStyle.bodyLarge,),
               )
             ),
             TableCell(
