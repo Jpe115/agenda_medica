@@ -172,8 +172,11 @@ class _TableRowsState extends State<TableRows> {
                     child: IconButton.filled(onPressed: () {}, icon: const Icon(Icons.edit_rounded)),
                   ),
 
-                  IconButton.filled(onPressed: () {
-                    DeleteDialogs.deleteDoctorDialog(context, widget.ref, widget.doctor.id);
+                  IconButton.filled(onPressed: () async{
+                    final a = await DeleteDialogs.deleteDoctorDialog(context, widget.ref, widget.doctor.id);
+                    await widget.ref.read(doctoresProvider.notifier).loadAllDoctores();
+                    setState(() {
+                    });
                   }, icon: const Icon(Icons.delete_forever_rounded)),
 
                 ],
