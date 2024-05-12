@@ -1,20 +1,38 @@
+import 'package:agenda/domain/entities/doctor.dart';
+import 'package:agenda/presentation/providers/doctores/doctores_provider.dart';
 import 'package:agenda/presentation/widgets/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class DoctoresScreen extends StatelessWidget {
+class DoctoresScreen extends ConsumerStatefulWidget {
 
   static const name = "doctores_screen";
 
   const DoctoresScreen({super.key});
 
   @override
+  DoctoresScreenState createState() => DoctoresScreenState();
+}
+
+class DoctoresScreenState extends ConsumerState<DoctoresScreen> {
+
+  @override
+  void initState() {
+    super.initState();
+
+    ref.read(doctoresProvider.notifier).loadAllDoctores();
+  }
+
+  @override
   Widget build(BuildContext context) {
+
+    final doctores = ref.watch(doctoresProvider);
 
     return Scaffold(
       backgroundColor: Colors.grey.shade100,
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text(name),
+        title: const Text(DoctoresScreen.name),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -28,12 +46,12 @@ class DoctoresScreen extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 14),
                 child: ListView.builder(
-                  itemCount: 10,
+                  itemCount: doctores.length + 1,
                   itemBuilder: (BuildContext context, int index) {
                     if (index == 0) {
                     return const TableHeaders();
                     }
-                    return const TableRows();
+                    return TableRows(doctor: doctores[index - 1],);
                   },
                 ),
               ),
@@ -101,11 +119,19 @@ class TableHeaders extends StatelessWidget {
   }
 }
 
-class TableRows extends StatelessWidget {
+class TableRows extends StatefulWidget {
+
+  final Doctor doctor;
+
   const TableRows({
-    super.key,
+    super.key, required this.doctor,
   });
 
+  @override
+  State<TableRows> createState() => _TableRowsState();
+}
+
+class _TableRowsState extends State<TableRows> {
   @override
   Widget build(BuildContext context) {
 
@@ -119,19 +145,19 @@ class TableRows extends StatelessWidget {
             TableCell(verticalAlignment: TableCellVerticalAlignment.middle, 
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 7),
-                child: Text("Mario", style: textStyle.bodyLarge,),
+                child: Text(widget.doctor.nombre, style: textStyle.bodyLarge,),
               ),
             ),
             TableCell(verticalAlignment: TableCellVerticalAlignment.middle, 
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 7),
-                child: Text("Cázarez", style: textStyle.bodyLarge,),
+                child: Text(widget.doctor.apellidos, style: textStyle.bodyLarge,),
               )
             ),
             TableCell(verticalAlignment: TableCellVerticalAlignment.middle, 
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 7),
-                child: Text("Gastroenterología", style: textStyle.bodyLarge,),
+                child: Text(widget.doctor.especialidad, style: textStyle.bodyLarge,),
               )
             ),
             TableCell(
