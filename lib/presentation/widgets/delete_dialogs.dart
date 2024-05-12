@@ -1,4 +1,6 @@
+import 'package:agenda/presentation/providers/especialidades/especialidades_repository_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class DeleteDialogs {
 
@@ -26,7 +28,7 @@ class DeleteDialogs {
     );
   }
   
-  static Future<dynamic> deleteEspecialidadDialog(BuildContext context, int especialidadId) {
+  static Future<dynamic> deleteEspecialidadDialog(BuildContext context, int especialidadId, WidgetRef ref) {
     return showDialog(context: context, 
       builder: (context) {
         return(AlertDialog(
@@ -41,6 +43,7 @@ class DeleteDialogs {
             ),
             
             FilledButton(onPressed: () {
+              var response = ref.watch(especialidadesRepositoryprovider).deleteEspecialidad(especialidadId);
               Navigator.of(context).pop();
               }, child: const Text("Eliminar")
             )
@@ -65,6 +68,7 @@ class DeleteDialogs {
             ),
             
             FilledButton(onPressed: () {
+              
               Navigator.of(context).pop();
               }, child: const Text("Eliminar")
             )

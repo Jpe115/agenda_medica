@@ -50,7 +50,7 @@ class EspecialidadesScreenState extends ConsumerState<EspecialidadesScreen> {
                     if (index == 0) {
                     return const _TableHeaders();
                     }
-                    return _TableRows(especialidad: especialidades[index - 1],);
+                    return _TableRows(especialidad: especialidades[index - 1], ref: ref,);
                   },
                 ),
               ),
@@ -115,8 +115,9 @@ class _TableHeaders extends StatelessWidget {
 class _TableRows extends StatefulWidget {
 
   final Especialidad especialidad;
+  final WidgetRef ref;
 
-  const _TableRows({required this.especialidad});
+  const _TableRows({required this.especialidad, required this.ref});
 
   @override
   State<_TableRows> createState() => _TableRowsState();
@@ -155,7 +156,7 @@ class _TableRowsState extends State<_TableRows> {
                   ),
 
                   IconButton.filled(onPressed: () {
-                    DeleteDialogs.deleteEspecialidadDialog(context, widget.especialidad.id);
+                    DeleteDialogs.deleteEspecialidadDialog(context, widget.especialidad.id, widget.ref);
                   }, icon: const Icon(Icons.delete_forever_rounded)),
 
                 ],
