@@ -5,7 +5,7 @@ import 'package:agenda/presentation/providers/especialidades/especialidades_repo
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final especialidadesProvider = StateNotifierProvider<EspecialidadesNotifier, List<Especialidad>>((ref) {
-  final fetchEspecialidades = ref.watch(especialidadesRepositoryprovider).getEspecialidades;
+  final fetchEspecialidades = ref.read(especialidadesRepositoryprovider).getEspecialidades;
 
   return EspecialidadesNotifier(fetchEspecialidades: fetchEspecialidades);
 });

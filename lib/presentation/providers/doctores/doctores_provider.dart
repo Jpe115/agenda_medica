@@ -3,7 +3,7 @@ import 'package:agenda/presentation/providers/doctores/doctores_repository_provi
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final doctoresProvider = StateNotifierProvider<DoctoresNotifier, List<Doctor>>((ref) {
-  final fetchDoctores = ref.watch(doctoresRepositoryProvider).getDoctores;
+  final fetchDoctores = ref.read(doctoresRepositoryProvider).getDoctores;
 
   return DoctoresNotifier(fetchDoctores: fetchDoctores);
 });
