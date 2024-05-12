@@ -170,7 +170,7 @@ class _TableRowsState extends State<TableRows> {
                   ),
 
                   IconButton.filled(onPressed: () {
-                    DeleteDialogs.deleteDoctorDialog(context);
+                    DeleteDialogs.deleteDoctorDialog(context, widget.doctor.id);
                   }, icon: const Icon(Icons.delete_forever_rounded)),
 
                 ],
