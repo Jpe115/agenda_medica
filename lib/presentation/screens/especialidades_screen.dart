@@ -47,7 +47,6 @@ class EspecialidadesScreenState extends ConsumerState<EspecialidadesScreen> {
                 child: ListView.builder(
                   itemCount: especialidades.length + 1,
                   itemBuilder: (BuildContext context, int index) {
-                    print(especialidades);
                     if (index == 0) {
                     return const _TableHeaders();
                     }
