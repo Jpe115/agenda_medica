@@ -21,8 +21,8 @@ class DeleteDialogs {
             ),
             
             FilledButton(onPressed: () {
-              //var response
-              ref.watch(doctoresRepositoryProvider).deleteDoctor(doctorId);
+              ref.read(doctoresRepositoryProvider).deleteDoctor(doctorId);
+              //ref.refresh(doctoresProvider);
               Navigator.of(context).pop();
               }, child: const Text("Eliminar")
             )
@@ -47,8 +47,7 @@ class DeleteDialogs {
             ),
             
             FilledButton(onPressed: () {
-              //var response
-              ref.watch(especialidadesRepositoryprovider).deleteEspecialidad(especialidadId);
+              ref.read(especialidadesRepositoryprovider).deleteEspecialidad(especialidadId);
               Navigator.of(context).pop();
               }, child: const Text("Eliminar")
             )
@@ -73,8 +72,7 @@ class DeleteDialogs {
             ),
             
             FilledButton(onPressed: () {
-              //var response
-              ref.watch(pacientesRepositoryProvider).deletepaciente(pacienteId);
+              ref.read(pacientesRepositoryProvider).deletepaciente(pacienteId);
               Navigator.of(context).pop();
               }, child: const Text("Eliminar")
             )
