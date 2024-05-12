@@ -4,7 +4,7 @@ import 'package:agenda/infrastructure/datasources/doctor_pydb_datasource.dart';
 
 class DoctoresRepositoryImpl extends DoctoresRepository {
 
-  final DcotorPydbDatasource datasource;
+  final DoctorPydbDatasource datasource;
   DoctoresRepositoryImpl({required this.datasource});
 
   @override

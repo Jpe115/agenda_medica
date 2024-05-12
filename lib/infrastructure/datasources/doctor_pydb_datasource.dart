@@ -2,7 +2,7 @@ import 'package:agenda/domain/datasources/doctores_datasource.dart';
 import 'package:agenda/domain/entities/doctor.dart';
 import 'package:dio/dio.dart';
 
-class DcotorPydbDatasource extends DoctoresDatasource {
+class DoctorPydbDatasource extends DoctoresDatasource {
 
   final dio = Dio(BaseOptions(
       baseUrl: "http://127.0.0.1:5000/api"
