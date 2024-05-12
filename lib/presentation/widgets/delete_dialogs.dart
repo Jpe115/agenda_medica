@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class DeleteDialogs {
 
-  static Future<dynamic> deleteDoctorDialog(BuildContext context) {
+  static Future<dynamic> deleteDoctorDialog(BuildContext context, int doctorId) {
     return showDialog(context: context, 
       builder: (context) {
         return(AlertDialog(
@@ -26,7 +26,7 @@ class DeleteDialogs {
     );
   }
   
-  static Future<dynamic> deleteEspecialidadDialog(BuildContext context) {
+  static Future<dynamic> deleteEspecialidadDialog(BuildContext context, int especialidadId) {
     return showDialog(context: context, 
       builder: (context) {
         return(AlertDialog(
@@ -50,7 +50,7 @@ class DeleteDialogs {
     );
   }
   
-  static Future<dynamic> deletePacienteDialog(BuildContext context) {
+  static Future<dynamic> deletePacienteDialog(BuildContext context, int pacienteId) {
     return showDialog(context: context, 
       builder: (context) {
         return(AlertDialog(
