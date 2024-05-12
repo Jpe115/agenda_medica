@@ -1,4 +1,5 @@
 import 'package:agenda/domain/entities/paciente.dart';
+import 'package:agenda/domain/entities/py_response.dart';
 import 'package:agenda/domain/repositories/pacientes_repository.dart';
 import 'package:agenda/infrastructure/datasources/pacientes_pydb_datasource.dart';
 
@@ -10,6 +11,11 @@ class PacientesRepositoryImpl extends PacientesRepository {
   @override
   Future<List<Paciente>> getPacientes() {
     return datasource.getPacientes();
+  }
+
+  @override
+  Future<PyResponse> deletepaciente(int id) {
+    return datasource.deletePaciente(id);
   }
 
 }
