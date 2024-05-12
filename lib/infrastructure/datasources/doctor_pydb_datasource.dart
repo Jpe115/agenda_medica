@@ -1,5 +1,6 @@
 import 'package:agenda/domain/datasources/doctores_datasource.dart';
 import 'package:agenda/domain/entities/doctor.dart';
+import 'package:agenda/domain/entities/py_response.dart';
 import 'package:dio/dio.dart';
 
 class DoctorPydbDatasource extends DoctoresDatasource {
@@ -23,6 +24,13 @@ class DoctorPydbDatasource extends DoctoresDatasource {
     } else {
       throw Exception('Expected a list');
     }
+  }
+
+  @override
+  Future<PyResponse> deleteDoctor(int id) async{
+    final response = await dio.delete("/doctores/delete/$id");
+
+    return PyResponse.fromJson(response.data);
   }
 
 }
