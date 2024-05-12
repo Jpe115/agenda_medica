@@ -1,4 +1,6 @@
+import 'package:agenda/presentation/providers/doctores/doctores_repository_provider.dart';
 import 'package:agenda/presentation/providers/especialidades/especialidades_repository_provider.dart';
+import 'package:agenda/presentation/providers/pacientes/pacientes_repository_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -19,6 +21,8 @@ class DeleteDialogs {
             ),
             
             FilledButton(onPressed: () {
+              //var response
+              ref.watch(doctoresRepositoryProvider).deleteDoctor(doctorId);
               Navigator.of(context).pop();
               }, child: const Text("Eliminar")
             )
@@ -43,7 +47,8 @@ class DeleteDialogs {
             ),
             
             FilledButton(onPressed: () {
-              var response = ref.watch(especialidadesRepositoryprovider).deleteEspecialidad(especialidadId);
+              //var response
+              ref.watch(especialidadesRepositoryprovider).deleteEspecialidad(especialidadId);
               Navigator.of(context).pop();
               }, child: const Text("Eliminar")
             )
@@ -68,7 +73,8 @@ class DeleteDialogs {
             ),
             
             FilledButton(onPressed: () {
-              
+              //var response
+              ref.watch(pacientesRepositoryProvider).deletepaciente(pacienteId);
               Navigator.of(context).pop();
               }, child: const Text("Eliminar")
             )
