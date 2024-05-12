@@ -51,7 +51,7 @@ class DoctoresScreenState extends ConsumerState<DoctoresScreen> {
                     if (index == 0) {
                     return const TableHeaders();
                     }
-                    return TableRows(doctor: doctores[index - 1],);
+                    return TableRows(doctor: doctores[index - 1], ref: ref,);
                   },
                 ),
               ),
@@ -122,9 +122,12 @@ class TableHeaders extends StatelessWidget {
 class TableRows extends StatefulWidget {
 
   final Doctor doctor;
+  final WidgetRef ref;
 
   const TableRows({
-    super.key, required this.doctor,
+    super.key, 
+    required this.doctor, 
+    required this.ref,
   });
 
   @override
@@ -170,7 +173,7 @@ class _TableRowsState extends State<TableRows> {
                   ),
 
                   IconButton.filled(onPressed: () {
-                    DeleteDialogs.deleteDoctorDialog(context, widget.doctor.id);
+                    DeleteDialogs.deleteDoctorDialog(context, widget.ref, widget.doctor.id);
                   }, icon: const Icon(Icons.delete_forever_rounded)),
 
                 ],

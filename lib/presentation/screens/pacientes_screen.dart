@@ -50,7 +50,7 @@ class PacientesScreenState extends ConsumerState<PacientesScreen> {
                     if (index == 0) {
                     return const _TableHeaders();
                     }
-                    return _TableRows(paciente: pacientes[index - 1],);
+                    return _TableRows(paciente: pacientes[index - 1], ref: ref,);
                   },
                 ),
               ),
@@ -127,7 +127,8 @@ class _TableHeaders extends StatelessWidget {
 class _TableRows extends StatefulWidget {
 
   final Paciente paciente;
-  const _TableRows({required this.paciente});
+  final WidgetRef ref;
+  const _TableRows({required this.paciente, required this.ref});
 
   @override
   State<_TableRows> createState() => _TableRowsState();
@@ -184,7 +185,7 @@ class _TableRowsState extends State<_TableRows> {
                   ),
 
                   IconButton.filled(onPressed: () {
-                    DeleteDialogs.deletePacienteDialog(context, widget.paciente.id);
+                    DeleteDialogs.deletePacienteDialog(context, widget.ref, widget.paciente.id);
                   }, icon: const Icon(Icons.delete_forever_rounded)),
 
                 ],
