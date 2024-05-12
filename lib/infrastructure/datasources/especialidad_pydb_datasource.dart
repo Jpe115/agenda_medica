@@ -1,5 +1,6 @@
 import 'package:agenda/domain/datasources/especialidades_datasource.dart';
 import 'package:agenda/domain/entities/especialidad.dart';
+import 'package:agenda/domain/entities/py_response.dart';
 import 'package:dio/dio.dart';
 
 class EspecialidadPydbDatasource extends EspecialidadesDatasource {
@@ -23,6 +24,14 @@ class EspecialidadPydbDatasource extends EspecialidadesDatasource {
     } else {
       throw Exception('Expected a list');
     }
+  }
+
+  @override
+  Future<PyResponse> deleteEspecialidad(int id) async{
+    
+    final response = await dio.delete("/especialidades/delete/$id");
+
+    return PyResponse.fromJson(response.data);
   }
 
 
