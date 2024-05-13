@@ -1,5 +1,6 @@
 import 'package:agenda/domain/entities/especialidad.dart';
 import 'package:agenda/presentation/providers/especialidades/especialidades_provider.dart';
+import 'package:agenda/presentation/providers/especialidades/especialidades_repository_provider.dart';
 import 'package:agenda/presentation/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -15,6 +16,11 @@ class EspecialidadesScreen extends ConsumerStatefulWidget {
 }
 
 class EspecialidadesScreenState extends ConsumerState<EspecialidadesScreen> {
+
+  void refrescar() async{
+    await Future.delayed(const Duration(milliseconds: 350));
+    ref.watch(especialidadesProvider.notifier).loadAllEspecialidades();
+  }
 
   @override
   void initState() {
@@ -50,7 +56,7 @@ class EspecialidadesScreenState extends ConsumerState<EspecialidadesScreen> {
                     if (index == 0) {
                     return const _TableHeaders();
                     }
-                    return _TableRows(especialidad: especialidades[index - 1], ref: ref,);
+                    return _TableRows(especialidad: especialidades[index - 1], ref: ref, refrescar: refrescar,);
                   },
                 ),
               ),
@@ -116,8 +122,10 @@ class _TableRows extends StatefulWidget {
 
   final Especialidad especialidad;
   final WidgetRef ref;
+  final VoidCallback refrescar;
 
-  const _TableRows({required this.especialidad, required this.ref});
+
+  const _TableRows({required this.especialidad, required this.ref, required this.refrescar});
 
   @override
   State<_TableRows> createState() => _TableRowsState();
@@ -155,8 +163,11 @@ class _TableRowsState extends State<_TableRows> {
                     child: IconButton.filled(onPressed: () {}, icon: const Icon(Icons.edit_rounded)),
                   ),
 
-                  IconButton.filled(onPressed: () {
-                    DeleteDialogs.deleteEspecialidadDialog(context, widget.ref, widget.especialidad.id);
+                  IconButton.filled(onPressed: () async{
+                    await DeleteDialogs.deleteEspecialidadDialog(context, widget.ref, widget.especialidad.id);
+                    widget.refrescar();
+                    setState(() {
+                    });
                   }, icon: const Icon(Icons.delete_forever_rounded)),
 
                 ],

@@ -16,6 +16,11 @@ class PacientesScreen extends ConsumerStatefulWidget {
 
 class PacientesScreenState extends ConsumerState<PacientesScreen> {
 
+  void refrescar() async{
+    await Future.delayed(const Duration(milliseconds: 350));
+    ref.watch(pacientesProvider.notifier).loadAllPacientes();
+  }
+
   @override
   void initState() {
     super.initState();
@@ -50,7 +55,7 @@ class PacientesScreenState extends ConsumerState<PacientesScreen> {
                     if (index == 0) {
                     return const _TableHeaders();
                     }
-                    return _TableRows(paciente: pacientes[index - 1], ref: ref,);
+                    return _TableRows(paciente: pacientes[index - 1], ref: ref, refrescar: refrescar,);
                   },
                 ),
               ),
@@ -128,7 +133,8 @@ class _TableRows extends StatefulWidget {
 
   final Paciente paciente;
   final WidgetRef ref;
-  const _TableRows({required this.paciente, required this.ref});
+  final VoidCallback refrescar;
+  const _TableRows({required this.paciente, required this.ref, required this.refrescar});
 
   @override
   State<_TableRows> createState() => _TableRowsState();
@@ -184,8 +190,11 @@ class _TableRowsState extends State<_TableRows> {
                     child: IconButton.filled(onPressed: () {}, icon: const Icon(Icons.edit_rounded)),
                   ),
 
-                  IconButton.filled(onPressed: () {
-                    DeleteDialogs.deletePacienteDialog(context, widget.ref, widget.paciente.id);
+                  IconButton.filled(onPressed: () async{
+                    await DeleteDialogs.deletePacienteDialog(context, widget.ref, widget.paciente.id);
+                    widget.refrescar();
+                    setState(() {                     
+                    });
                   }, icon: const Icon(Icons.delete_forever_rounded)),
 
                 ],
