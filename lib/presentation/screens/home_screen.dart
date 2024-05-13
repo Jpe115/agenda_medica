@@ -1,5 +1,6 @@
-import 'package:agenda/presentation/widgets/side_menu.dart';
 import 'package:flutter/material.dart';
+
+import 'package:agenda/presentation/widgets/side_menu.dart';
 import 'package:agenda/presentation/widgets/widgets.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -27,7 +28,7 @@ class HomeScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             FilledButton(onPressed: (){
-              AddDialogs.newDoctorDialog(context);
+              AddDialogs.newPacienteDialog(context);
               }, child: const Text("Añadir doctor")
             )
           ],
