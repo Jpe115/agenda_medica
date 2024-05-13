@@ -1,6 +1,5 @@
 import 'package:agenda/domain/entities/especialidad.dart';
 import 'package:agenda/presentation/providers/especialidades/especialidades_provider.dart';
-import 'package:agenda/presentation/providers/especialidades/especialidades_repository_provider.dart';
 import 'package:agenda/presentation/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
