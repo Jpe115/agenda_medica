@@ -11,12 +11,21 @@ class AddDialogs {
           content: SingleChildScrollView(
             child: Column(
               children: [
-                const Text("Lorem ut incididunt ea occaecat. Pariatur ullamco consequat ea in consectetur voluptate ut do et ut laborum proident. Laboris reprehenderit mollit duis consequat proident. Sit minim cupidatat magna dolor ad qui cillum sint duis anim nisi consequat magna dolor. Nostrud velit mollit cupidatat irure commodo irure aute laborum ipsum sit nostrud sit irure sunt. Eu ad reprehenderit ea dolore ullamco proident non anim. Sit reprehenderit sint est ipsum laborum do velit anim amet excepteur laboris adipisicing mollit."),
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 30),
+                  child: Text("Ingrese los datos del nuevo doctor."),
+                ),
                 TextFormField(
                   decoration: const InputDecoration(labelText: 'Nombre'),
+                  keyboardType: TextInputType.name,
+                  maxLength: 30,
+                  inputFormatters: [FilteringTextInputFormatter.allow(RegExp("[a-zA-ZáéíóúÁÉÍÓÚñÑ ]"))  ],
                 ),
                 TextFormField(
                   decoration: const InputDecoration(labelText: 'Apellido'),
+                  keyboardType: TextInputType.name,
+                  maxLength: 40,
+                  inputFormatters: [FilteringTextInputFormatter.allow(RegExp("[a-zA-ZáéíóúÁÉÍÓÚñÑ ]"))  ],
                 ),
                 TextFormField(
                   decoration: const InputDecoration(labelText: 'Especialidad'),
@@ -50,9 +59,12 @@ class AddDialogs {
           content: SingleChildScrollView(
             child: Column(
               children: [
-                const Text("Lorem ut incididunt ea occaecat. Pariatur ullamco consequat ea in consectetur voluptate ut do et ut laborum proident. Laboris reprehenderit mollit duis consequat proident. Sit minim cupidatat magna dolor ad qui cillum sint duis anim nisi consequat magna dolor. Nostrud velit mollit cupidatat irure commodo irure aute laborum ipsum sit nostrud sit irure sunt. Eu ad reprehenderit ea dolore ullamco proident non anim. Sit reprehenderit sint est ipsum laborum do velit anim amet excepteur laboris adipisicing mollit."),
+                const Text("Ingrese los datos de la nueva especialidad a ofrecer."),
                 TextFormField(
                   decoration: const InputDecoration(labelText: 'Nombre de la especialidad'),
+                  keyboardType: TextInputType.name,
+                  maxLength: 50,
+                  inputFormatters: [FilteringTextInputFormatter.allow(RegExp("[a-zA-ZáéíóúÁÉÍÓÚñÑ ]"))  ],
                 ),
               ],
             ),
