@@ -1,5 +1,6 @@
 import 'package:agenda/domain/entities/doctor.dart';
 import 'package:agenda/presentation/providers/doctores/doctores_provider.dart';
+import 'package:agenda/presentation/providers/doctores/doctores_repository_provider.dart';
 import 'package:agenda/presentation/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -15,6 +16,11 @@ class DoctoresScreen extends ConsumerStatefulWidget {
 }
 
 class DoctoresScreenState extends ConsumerState<DoctoresScreen> {
+
+  void refrescar() async{
+    await Future.delayed(const Duration(milliseconds: 350));
+    ref.watch(doctoresProvider.notifier).loadAllDoctores();
+  }
 
   @override
   void initState() {
@@ -51,7 +57,7 @@ class DoctoresScreenState extends ConsumerState<DoctoresScreen> {
                     if (index == 0) {
                     return const TableHeaders();
                     }
-                    return TableRows(doctor: doctores[index - 1], ref: ref,);
+                    return TableRows(doctor: doctores[index - 1], ref: ref, refrescar: refrescar,);
                   },
                 ),
               ),
@@ -123,11 +129,12 @@ class TableRows extends StatefulWidget {
 
   final Doctor doctor;
   final WidgetRef ref;
+  final VoidCallback refrescar;
 
   const TableRows({
     super.key, 
     required this.doctor, 
-    required this.ref,
+    required this.ref, required this.refrescar,
   });
 
   @override
@@ -174,7 +181,8 @@ class _TableRowsState extends State<TableRows> {
 
                   IconButton.filled(onPressed: () async{
                     final a = await DeleteDialogs.deleteDoctorDialog(context, widget.ref, widget.doctor.id);
-                    await widget.ref.read(doctoresProvider.notifier).loadAllDoctores();
+                    widget.refrescar();
+                    //widget.ref.read(doctoresProvider.notifier).state.removeWhere((doctor) => doctor.id == widget.doctor.id);
                     setState(() {
                     });
                   }, icon: const Icon(Icons.delete_forever_rounded)),
