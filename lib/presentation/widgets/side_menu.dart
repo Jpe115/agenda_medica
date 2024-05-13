@@ -1,6 +1,7 @@
-import 'package:agenda/config/menu/menu_items.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+
+import 'package:agenda/config/menu/menu_items.dart';
 
 class SideMenu extends StatefulWidget {
 

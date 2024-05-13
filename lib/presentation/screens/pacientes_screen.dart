@@ -1,8 +1,9 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:agenda/domain/entities/paciente.dart';
 import 'package:agenda/presentation/providers/pacientes/pacientes_provider.dart';
 import 'package:agenda/presentation/widgets/widgets.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class PacientesScreen extends ConsumerStatefulWidget {
 

@@ -1,8 +1,9 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:agenda/presentation/providers/doctores/doctores_repository_provider.dart';
 import 'package:agenda/presentation/providers/especialidades/especialidades_repository_provider.dart';
 import 'package:agenda/presentation/providers/pacientes/pacientes_repository_provider.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class DeleteDialogs {
 
