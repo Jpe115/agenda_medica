@@ -4,16 +4,22 @@ import 'package:flutter/services.dart';
 class AddDialogs {
 
   static Future<dynamic> newDoctorDialog(BuildContext context) {
+    List<String> opciones = ['One', 'Two', 'Three', 'Four'];
+    String currentValue = 'One';
+    final colors = Theme.of(context).colorScheme;
+    final textStyle = Theme.of(context).textTheme;
+
     return showDialog(context: context, 
       builder: (context) {
         return(AlertDialog(
-          title: const Text("Form"),
+          title: const Text("Añadir"),
           content: SingleChildScrollView(
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 30),
-                  child: Text("Ingrese los datos del nuevo doctor."),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: Text("Ingrese los datos del nuevo doctor.", style: textStyle.headlineSmall,),
                 ),
                 TextFormField(
                   decoration: const InputDecoration(labelText: 'Nombre'),
@@ -27,9 +33,30 @@ class AddDialogs {
                   maxLength: 40,
                   inputFormatters: [FilteringTextInputFormatter.allow(RegExp("[a-zA-ZáéíóúÁÉÍÓÚñÑ ]"))  ],
                 ),
-                TextFormField(
-                  decoration: const InputDecoration(labelText: 'Especialidad'),
-                ),
+                Text("Especialidad", style: textStyle.bodyLarge,),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8),
+                  child: StatefulBuilder(builder: (context, setState) {
+                    return DropdownButton<String>(
+                      focusColor: Colors.transparent,
+                      dropdownColor: colors.inversePrimary,
+                      elevation: 4,
+                      value: currentValue,
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          currentValue = newValue!;
+                        });
+                      },
+                      items: opciones
+                          .map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                    );
+                  },),
+                )
               ],
             ),
           ),
@@ -52,14 +79,20 @@ class AddDialogs {
   }
   
   static Future<dynamic> newEspecialidadDialog(BuildContext context) {
+
+    final textStyle = Theme.of(context).textTheme;
+
     return showDialog(context: context, 
       builder: (context) {
         return(AlertDialog(
-          title: const Text("Form"),
+          title: const Text("Añadir"),
           content: SingleChildScrollView(
             child: Column(
               children: [
-                const Text("Ingrese los datos de la nueva especialidad a ofrecer."),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 5),
+                  child: Text("Ingrese el nombre de la nueva especialidad a ofrecer.", style: textStyle.headlineSmall,),
+                ),
                 TextFormField(
                   decoration: const InputDecoration(labelText: 'Nombre de la especialidad'),
                   keyboardType: TextInputType.name,
@@ -88,16 +121,19 @@ class AddDialogs {
   }
 
   static Future<dynamic> newPacienteDialog(BuildContext context) {
+
+    final textStyle = Theme.of(context).textTheme;
+
     return showDialog(context: context, 
       builder: (context) {
         return(AlertDialog(
-          title: const Text("Form"),
+          title: const Text("Añadir"),
           content: SingleChildScrollView(
             child: Column(
               children: [
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 70),
-                  child: Text("Ingrese los datos del paciente."),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 70),
+                  child: Text("Ingrese los datos del paciente." , style: textStyle.headlineSmall,),
                 ),
                 TextFormField(
                   decoration: const InputDecoration(labelText: 'Nombre'),
