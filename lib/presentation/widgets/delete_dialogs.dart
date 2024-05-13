@@ -22,7 +22,6 @@ class DeleteDialogs {
             
             FilledButton(onPressed: () {
               ref.read(doctoresRepositoryProvider).deleteDoctor(doctorId);
-              //ref.refresh(doctoresProvider);
               Navigator.of(context).pop();
               }, child: const Text("Eliminar")
             )
