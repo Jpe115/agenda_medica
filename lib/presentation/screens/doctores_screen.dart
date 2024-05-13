@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'package:agenda/domain/entities/especialidad.dart';
+import 'package:agenda/presentation/providers/especialidades/especialidades_provider.dart';
+
 import 'package:agenda/domain/entities/doctor.dart';
 import 'package:agenda/presentation/providers/doctores/doctores_provider.dart';
 import 'package:agenda/presentation/widgets/widgets.dart';
@@ -27,12 +30,15 @@ class DoctoresScreenState extends ConsumerState<DoctoresScreen> {
     super.initState();
 
     ref.read(doctoresProvider.notifier).loadAllDoctores();
+    ref.read(especialidadesProvider.notifier).loadAllEspecialidades();
   }
 
   @override
   Widget build(BuildContext context) {
 
     final doctores = ref.watch(doctoresProvider);
+    final especialidades = ref.watch(especialidadesProvider);
+    //final listaEspecialidades = especialidades.map(esp) =>
 
     return Scaffold(
       backgroundColor: Colors.grey.shade100,
@@ -43,7 +49,7 @@ class DoctoresScreenState extends ConsumerState<DoctoresScreen> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const AddContainer(),
+            AddContainer(listaEspecialidades: especialidades,),
 
             const SizedBox(height: 13,),
 
@@ -197,8 +203,11 @@ class _TableRowsState extends State<TableRows> {
 }
 
 class AddContainer extends StatelessWidget {
+
+  final List<Especialidad> listaEspecialidades;
+
   const AddContainer({
-    super.key,
+    super.key, required this.listaEspecialidades,
   });
 
   @override
@@ -220,7 +229,7 @@ class AddContainer extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 7, horizontal: 13),
               child: FilledButton.icon(
                 onPressed: () {
-                  AddDialogs.newDoctorDialog(context);
+                  AddDialogs.newDoctorDialog(context, listaEspecialidades);
                 }, 
                 icon: const Icon(Icons.add_circle_outline_rounded),
                 label: const Text("Añadir nuevo doctor")
