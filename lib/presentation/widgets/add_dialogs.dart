@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import 'package:agenda/domain/entities/especialidad.dart';
+
 class AddDialogs {
 
-  static Future<dynamic> newDoctorDialog(BuildContext context) {
-    List<String> opciones = ['One', 'Two', 'Three', 'Four'];
-    String currentValue = 'One';
+  static Future<dynamic> newDoctorDialog(BuildContext context, List<Especialidad> especialidades) {
+    String currentValue = especialidades.first.nombreEspecialidad;
     final colors = Theme.of(context).colorScheme;
     final textStyle = Theme.of(context).textTheme;
 
@@ -47,11 +48,11 @@ class AddDialogs {
                           currentValue = newValue!;
                         });
                       },
-                      items: opciones
-                          .map<DropdownMenuItem<String>>((String value) {
+                      items: especialidades
+                          .map<DropdownMenuItem<String>>((Especialidad value) {
                         return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
+                          value: value.nombreEspecialidad,
+                          child: Text(value.nombreEspecialidad),
                         );
                       }).toList(),
                     );
