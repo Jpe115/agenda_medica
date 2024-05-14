@@ -16,6 +16,10 @@ class UpdateDialogs {
     final TextEditingController nombreController = TextEditingController(text: doctor.nombre);
     final TextEditingController apellidoController = TextEditingController(text: doctor.apellidos);
 
+    final String initialNombre = doctor.nombre;
+    final String initialApellidos = doctor.apellidos;
+    final String initialEspecialidadId = doctor.especialidadId.toString();
+
     final colors = Theme.of(context).colorScheme;
     final textStyle = Theme.of(context).textTheme;
 
@@ -91,8 +95,13 @@ class UpdateDialogs {
                 Navigator.of(context).pop();
               } 
               else {
-                ref.read(doctoresRepositoryProvider).addDoctor(nombre, apellidos, especialidadId);
-                Navigator.of(context).pop();
+                if (initialNombre != nombre || initialApellidos != apellidos || initialEspecialidadId != especialidadId) {
+                  ref.read(doctoresRepositoryProvider).updateDoctor(doctor.id.toString(), nombre, apellidos, especialidadId);
+                  Navigator.of(context).pop();
+                }
+                else {
+                  Navigator.of(context).pop();
+                }
               }
               
               //TODO: guardar resultado pyresponse
@@ -108,6 +117,8 @@ class UpdateDialogs {
 
     final textStyle = Theme.of(context).textTheme;
     final TextEditingController nombreEspController = TextEditingController(text: especialidad.nombreEspecialidad);
+
+    final String initialNombre = especialidad.nombreEspecialidad;
 
     return showDialog(context: context, 
       builder: (context) {
@@ -144,8 +155,13 @@ class UpdateDialogs {
                 Navigator.of(context).pop();
               } 
               else {
-                ref.read(especialidadesRepositoryprovider).addEspecialidad(nombreEspecialidad);
-                Navigator.of(context).pop();
+                if (initialNombre != nombreEspecialidad) {
+                  ref.read(especialidadesRepositoryprovider).updateEspecialidad(especialidad.id.toString(), nombreEspecialidad);
+                  Navigator.of(context).pop();
+                }
+                else {
+                  Navigator.of(context).pop();
+                }
               }
               }, 
               child: const Text("Guardar")
@@ -164,6 +180,12 @@ class UpdateDialogs {
     final TextEditingController edadController = TextEditingController(text: paciente.edad.toString());
     final TextEditingController telefonoController = TextEditingController(text: paciente.telefono);
     final TextEditingController correoController = TextEditingController(text: paciente.correo);
+
+    final String initialNombre = paciente.nombre;
+    final String initialApellidos = paciente.apellidos;
+    final String initialEdad = paciente.edad.toString();
+    final String initialTelefono = paciente.telefono;
+    final String initialCorreo = paciente.correo;
 
     return showDialog(context: context, 
       builder: (context) {
@@ -231,8 +253,13 @@ class UpdateDialogs {
                 Navigator.of(context).pop();
               } 
               else {
-                ref.read(pacientesRepositoryProvider).addPaciente(nombre, apellidos, edad, telefono, correo);
-                Navigator.of(context).pop();
+                if (initialNombre != nombre || initialApellidos != apellidos || initialEdad != edad || initialTelefono != telefono || initialCorreo != correo) {
+                  ref.read(pacientesRepositoryProvider).updatePaciente(paciente.id.toString(), nombre, apellidos, edad, telefono, correo);
+                  Navigator.of(context).pop();
+                }
+                else {
+                  Navigator.of(context).pop();
+                }
               }
             }, child: const Text("Guardar"))
           ],
