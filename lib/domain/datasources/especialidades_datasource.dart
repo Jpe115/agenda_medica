@@ -6,4 +6,6 @@ abstract class EspecialidadesDatasource {
   Future<List<Especialidad>> getEspecialidades();
 
   Future<PyResponse> deleteEspecialidad(int id);
+
+  Future<PyResponse> addEspecialidad(String nombreEspecialidad);
 }

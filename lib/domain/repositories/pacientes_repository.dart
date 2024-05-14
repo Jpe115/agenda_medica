@@ -6,4 +6,6 @@ abstract class PacientesRepository {
   Future<List<Paciente>> getPacientes();
 
   Future<PyResponse> deletepaciente(int id);
+
+  Future<PyResponse> addPaciente(String nombre, String apellidos, String edad, String telefono, String correo);
 }

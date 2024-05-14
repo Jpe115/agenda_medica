@@ -6,4 +6,6 @@ abstract class CitasRepository {
   Future<List<Cita>> getCitas();
 
   Future<PyResponse> deleteCita(int id);
+
+  Future<PyResponse> addCita(String doctorId, String pacienteId, String especialidadId, String fecha, String hora);
 }
