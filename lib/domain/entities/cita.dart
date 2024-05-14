@@ -20,7 +20,7 @@ class Cita {
         doctorId: json["doctorId"],
         especialidadId: json["especialidadId"],
         fecha: json["fecha"],
-        hora: json["hora"],
+        hora: json["hora"].toString(),
         id: json["id"],
         pacienteId: json["pacienteId"],
     );
