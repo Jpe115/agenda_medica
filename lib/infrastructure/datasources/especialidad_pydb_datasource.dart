@@ -33,6 +33,17 @@ class EspecialidadPydbDatasource extends EspecialidadesDatasource {
 
     return PyResponse.fromJson(response.data);
   }
+  
+  @override
+  Future<PyResponse> addEspecialidad(String nombreEspecialidad) async{
+    final response = await dio.post("/especialidades/add", data: {
+      "especialidad": nombreEspecialidad
+    }, options: Options(
+    contentType: Headers.formUrlEncodedContentType,
+    ));
+
+    return PyResponse.fromJson(response.data);
+  }
 
 
 }

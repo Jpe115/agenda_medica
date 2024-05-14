@@ -30,5 +30,20 @@ class PacientePydbDatasource extends PacientesDatasource {
 
     return PyResponse.fromJson(response.data);
   }
+  
+  @override
+  Future<PyResponse> addPaciente(String nombre, String apellidos, String edad, String telefono, String correo) async{
+    final response = await dio.post("/pacientes/add", data: {
+      "nombre": nombre,
+      "apellido": apellidos,
+      "edad": edad,
+      "telefono": telefono,
+      "correo": correo,
+    }, options: Options(
+    contentType: Headers.formUrlEncodedContentType,
+    ));
+
+    return PyResponse.fromJson(response.data);
+  }
 
 }
