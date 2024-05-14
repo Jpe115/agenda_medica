@@ -9,5 +9,5 @@ abstract class CitasRepository {
 
   Future<PyResponse> addCita(String doctorId, String pacienteId, String especialidadId, String fecha, String hora);
   
-  Future<PyResponse> updateCita(String doctorId, String pacienteId, String especialidadId, String fecha, String hora);
+  Future<PyResponse> updateCita(String citaId, String doctorId, String pacienteId, String especialidadId, String fecha, String hora);
 }

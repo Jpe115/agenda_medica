@@ -9,5 +9,5 @@ abstract class EspecialidadesDatasource {
 
   Future<PyResponse> addEspecialidad(String nombreEspecialidad);
   
-  Future<PyResponse> updateEspecialidad(String nombreEspecialidad);
+  Future<PyResponse> updateEspecialidad(String especialidadId, String nombreEspecialidad);
 }
