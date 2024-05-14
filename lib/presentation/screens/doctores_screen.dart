@@ -1,4 +1,3 @@
-import 'package:agenda/presentation/widgets/dialogs/update_dialogs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -6,6 +5,7 @@ import 'package:agenda/domain/entities/especialidad.dart';
 import 'package:agenda/presentation/providers/especialidades/especialidades_provider.dart';
 
 import 'package:agenda/domain/entities/doctor.dart';
+import 'package:agenda/presentation/widgets/dialogs/update_dialogs.dart';
 import 'package:agenda/presentation/providers/doctores/doctores_provider.dart';
 import 'package:agenda/presentation/widgets/widgets.dart';
 
