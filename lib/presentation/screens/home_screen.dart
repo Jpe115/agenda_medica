@@ -20,17 +20,14 @@ class HomeScreen extends StatelessWidget {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: const Text(name),
       ),
-      body: Center(
+      body: const Center(
         child: Column(
           // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
           // action in the IDE, or press "p" in the console), to see the
           // wireframe for each widget.
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            FilledButton(onPressed: (){
-              AddDialogs.newPacienteDialog(context);
-              }, child: const Text("Añadir doctor")
-            )
+            Text("hola mundo")
           ],
         ),
       ),
