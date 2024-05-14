@@ -1,3 +1,4 @@
+import 'package:agenda/presentation/widgets/dialogs/update_dialogs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -63,7 +64,7 @@ class DoctoresScreenState extends ConsumerState<DoctoresScreen> {
                     if (index == 0) {
                     return const TableHeaders();
                     }
-                    return TableRows(doctor: doctores[index - 1], ref: ref, refrescar: refrescar,);
+                    return TableRows(doctor: doctores[index - 1], ref: ref, refrescar: refrescar, especialidades: especialidades,);
                   },
                 ),
               ),
@@ -134,13 +135,15 @@ class TableHeaders extends StatelessWidget {
 class TableRows extends StatefulWidget {
 
   final Doctor doctor;
+  final List<Especialidad> especialidades;
   final WidgetRef ref;
   final VoidCallback refrescar;
 
   const TableRows({
     super.key, 
     required this.doctor, 
-    required this.ref, required this.refrescar,
+    required this.ref, required this.refrescar, 
+    required this.especialidades,
   });
 
   @override
@@ -182,7 +185,11 @@ class _TableRowsState extends State<TableRows> {
 
                   Padding(
                     padding: const EdgeInsets.all(7.0),
-                    child: IconButton.filled(onPressed: () {}, icon: const Icon(Icons.edit_rounded)),
+                    child: IconButton.filled(onPressed: () async{
+                      await UpdateDialogs.updateDoctorDialog(context, widget.ref, widget.especialidades, widget.doctor);
+                      widget.refrescar();
+                    }, 
+                    icon: const Icon(Icons.edit_rounded)),
                   ),
 
                   IconButton.filled(onPressed: () async{
