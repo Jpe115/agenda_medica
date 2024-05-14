@@ -22,5 +22,10 @@ class PacientesRepositoryImpl extends PacientesRepository {
   Future<PyResponse> addPaciente(String nombre, String apellidos, String edad, String telefono, String correo) {
     return datasource.addPaciente(nombre, apellidos, edad, telefono, correo);
   }
+  
+  @override
+  Future<PyResponse> updatePaciente(String pacienteId, String nombre, String apellidos, String edad, String telefono, String correo) {
+    return datasource.updatePaciente(pacienteId, nombre, apellidos, edad, telefono, correo);
+  }
 
 }

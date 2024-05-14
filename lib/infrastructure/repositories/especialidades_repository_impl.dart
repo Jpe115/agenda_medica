@@ -22,4 +22,9 @@ class EspecialidadesRepositoryimpl extends EspecialidadesRepository {
   Future<PyResponse> addEspecialidad(String nombreEspecialidad) {
     return datasource.addEspecialidad(nombreEspecialidad);
   }
+  
+  @override
+  Future<PyResponse> updateEspecialidad(String especialidadId, String nombreEspecialidad) {
+    return datasource.updateEspecialidad(especialidadId, nombreEspecialidad);
+  }
 }
