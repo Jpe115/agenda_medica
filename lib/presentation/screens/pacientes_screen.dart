@@ -42,7 +42,7 @@ class PacientesScreenState extends ConsumerState<PacientesScreen> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const _AddContainer(),
+            _AddContainer(ref: ref, refrescar: refrescar,),
 
             const SizedBox(height: 13,),
 
@@ -209,7 +209,10 @@ class _TableRowsState extends State<_TableRows> {
 }
 
 class _AddContainer extends StatelessWidget {
-  const _AddContainer();
+
+  final WidgetRef ref;
+  final VoidCallback refrescar;
+  const _AddContainer({required this.ref, required this.refrescar});
 
   @override
   Widget build(BuildContext context) {
@@ -229,8 +232,9 @@ class _AddContainer extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 7, horizontal: 13),
               child: FilledButton.icon(
-                onPressed: () {
-                  AddDialogs.newPacienteDialog(context);
+                onPressed: () async{
+                  await AddDialogs.newPacienteDialog(context, ref);
+                  refrescar();
                 }, 
                 icon: const Icon(Icons.add_circle_outline_rounded),
                 label: const Text("Añadir nuevo paciente")
