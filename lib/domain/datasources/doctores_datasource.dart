@@ -9,4 +9,6 @@ abstract class DoctoresDatasource {
   Future<PyResponse> deleteDoctor(int id);
   
   Future<PyResponse> addDoctor(String nombre, String apellidos, String especialidadId);
+  
+  Future<PyResponse> updateDoctor(String nombre, String apellidos, String especialidadId);
 }
