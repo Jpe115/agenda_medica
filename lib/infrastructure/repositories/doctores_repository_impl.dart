@@ -17,5 +17,10 @@ class DoctoresRepositoryImpl extends DoctoresRepository {
   Future<PyResponse> deleteDoctor(int id) {
     return datasource.deleteDoctor(id);
   }
+  
+  @override
+  Future<PyResponse> addDoctor(String nombre, String apellidos, String especialidadId) {
+    return datasource.addDoctor(nombre, apellidos, especialidadId);
+  }
 
 }

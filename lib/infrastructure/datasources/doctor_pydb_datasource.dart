@@ -32,5 +32,18 @@ class DoctorPydbDatasource extends DoctoresDatasource {
 
     return PyResponse.fromJson(response.data);
   }
+  
+  @override
+  Future<PyResponse> addDoctor(String nombre, String apellidos, String especialidadId) async{
+    final response = await dio.post("/doctores/add", data: {
+      "nombre": nombre,
+      "apellido": apellidos,
+      "especialidadId": especialidadId
+    }, options: Options(
+    contentType: Headers.formUrlEncodedContentType,
+    ));
+
+    return PyResponse.fromJson(response.data);
+  }
 
 }
