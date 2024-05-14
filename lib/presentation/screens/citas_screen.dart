@@ -1,3 +1,5 @@
+import 'package:agenda/domain/entities/cita.dart';
+import 'package:agenda/domain/entities/paciente.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -44,6 +46,7 @@ class CitasScreenState extends ConsumerState<CitasScreen> {
     final doctores = ref.watch(doctoresProvider);
     final especialidades = ref.watch(especialidadesProvider);
     final pacientes = ref.watch(pacientesProvider);
+    final citas = ref.watch(citasProvider);
 
     return Scaffold(
       backgroundColor: Colors.grey.shade100,
@@ -63,12 +66,12 @@ class CitasScreenState extends ConsumerState<CitasScreen> {
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 14),
                 child: ListView.builder(
-                  itemCount: doctores.length + 1,
+                  itemCount: citas.length + 1,
                   itemBuilder: (BuildContext context, int index) {
                     if (index == 0) {
                     return const _TableHeaders();
                     }
-                    return _TableRows(doctor: doctores[index - 1], ref: ref, refrescar: refrescar, especialidades: especialidades,);
+                    return _TableRows(doctor: doctores[index - 1], ref: ref, refrescar: refrescar, cita: citas[index - 1], paciente: pacientes[index - 1], especialidad: especialidades[index - 1],);
                   },
                 ),
               ),
@@ -113,15 +116,23 @@ class _TableHeaders extends StatelessWidget {
           children: [
             TableCell(child: Padding(
               padding: const EdgeInsets.all(6.0),
-              child: Text("Nombre", style: textStyle.titleLarge),
+              child: Text("Nombre paciente", style: textStyle.titleLarge),
             )),
             TableCell(child: Padding(
               padding: const EdgeInsets.all(6.0),
-              child: Text("Apellido", style: textStyle.titleLarge,),
+              child: Text("Nombre doctor", style: textStyle.titleLarge,),
             )),
             TableCell(child: Padding(
               padding: const EdgeInsets.all(6.0),
               child: Text("Especialidad", style: textStyle.titleLarge,),
+            )),
+            TableCell(child: Padding(
+              padding: const EdgeInsets.all(6.0),
+              child: Text("Fecha", style: textStyle.titleLarge,),
+            )),
+            TableCell(child: Padding(
+              padding: const EdgeInsets.all(6.0),
+              child: Text("Hora", style: textStyle.titleLarge,),
             )),
             TableCell(child: Padding(
               padding: const EdgeInsets.all(6.0),
@@ -137,14 +148,19 @@ class _TableHeaders extends StatelessWidget {
 class _TableRows extends StatefulWidget {
 
   final Doctor doctor;
-  final List<Especialidad> especialidades;
+  final Especialidad especialidad;
+  final Paciente paciente;
+  final Cita cita;
   final WidgetRef ref;
   final VoidCallback refrescar;
 
   const _TableRows({
     required this.doctor, 
-    required this.ref, required this.refrescar, 
-    required this.especialidades,
+    required this.especialidad, 
+    required this.paciente, 
+    required this.ref, 
+    required this.cita,
+    required this.refrescar, 
   });
 
   @override
@@ -152,6 +168,11 @@ class _TableRows extends StatefulWidget {
 }
 
 class _TableRowsState extends State<_TableRows> {
+
+  String formatearHora(String hora) {
+    return '${hora.substring(0, 2)}:${hora.substring(2)}';
+  }
+
   @override
   Widget build(BuildContext context) {
 
@@ -165,19 +186,31 @@ class _TableRowsState extends State<_TableRows> {
             TableCell(verticalAlignment: TableCellVerticalAlignment.middle, 
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 7),
-                child: Text(widget.doctor.nombre, style: textStyle.bodyLarge,),
+                child: Text(widget.paciente.nombre, style: textStyle.bodyLarge,),
               ),
             ),
             TableCell(verticalAlignment: TableCellVerticalAlignment.middle, 
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 7),
-                child: Text(widget.doctor.apellidos, style: textStyle.bodyLarge,),
+                child: Text(widget.doctor.nombre, style: textStyle.bodyLarge,),
               )
             ),
             TableCell(verticalAlignment: TableCellVerticalAlignment.middle, 
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 7),
-                child: Text(widget.doctor.especialidad, style: textStyle.bodyLarge,),
+                child: Text(widget.especialidad.nombreEspecialidad, style: textStyle.bodyLarge,),
+              )
+            ),
+            TableCell(verticalAlignment: TableCellVerticalAlignment.middle, 
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 7),
+                child: Text(widget.cita.fecha, style: textStyle.bodyLarge,),
+              )
+            ),
+            TableCell(verticalAlignment: TableCellVerticalAlignment.middle, 
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 7),
+                child: Text(formatearHora(widget.cita.hora), style: textStyle.bodyLarge,),
               )
             ),
             TableCell(
@@ -187,7 +220,7 @@ class _TableRowsState extends State<_TableRows> {
                   Padding(
                     padding: const EdgeInsets.all(7.0),
                     child: IconButton.filled(onPressed: () async{
-                      await UpdateDialogs.updateDoctorDialog(context, widget.ref, widget.especialidades, widget.doctor);
+                      //await UpdateDialogs.updateDoctorDialog(context, widget.ref, widget.especialidades, widget.doctor);
                       widget.refrescar();
                     }, 
                     icon: const Icon(Icons.edit_rounded)),
