@@ -22,7 +22,7 @@ class DoctoresScreen extends ConsumerStatefulWidget {
 class DoctoresScreenState extends ConsumerState<DoctoresScreen> {
 
   void refrescar() async{
-    await Future.delayed(const Duration(milliseconds: 400));
+    await Future.delayed(const Duration(milliseconds: 475));
     ref.watch(doctoresProvider.notifier).loadAllDoctores();
   }
 
