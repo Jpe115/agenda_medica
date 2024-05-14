@@ -21,7 +21,7 @@ class DoctoresScreen extends ConsumerStatefulWidget {
 class DoctoresScreenState extends ConsumerState<DoctoresScreen> {
 
   void refrescar() async{
-    await Future.delayed(const Duration(milliseconds: 350));
+    await Future.delayed(const Duration(milliseconds: 400));
     ref.watch(doctoresProvider.notifier).loadAllDoctores();
   }
 
@@ -49,7 +49,7 @@ class DoctoresScreenState extends ConsumerState<DoctoresScreen> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            AddContainer(listaEspecialidades: especialidades,),
+            AddContainer(listaEspecialidades: especialidades, ref: ref, refrescar: refrescar,),
 
             const SizedBox(height: 13,),
 
@@ -205,9 +205,11 @@ class _TableRowsState extends State<TableRows> {
 class AddContainer extends StatelessWidget {
 
   final List<Especialidad> listaEspecialidades;
+  final WidgetRef ref;
+  final VoidCallback refrescar;
 
   const AddContainer({
-    super.key, required this.listaEspecialidades,
+    super.key, required this.listaEspecialidades, required this.ref, required this.refrescar,
   });
 
   @override
@@ -228,8 +230,11 @@ class AddContainer extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 7, horizontal: 13),
               child: FilledButton.icon(
-                onPressed: () {
-                  AddDialogs.newDoctorDialog(context, listaEspecialidades);
+                onPressed: () async{
+                  //final PyResponse a = 
+                  await AddDialogs.newDoctorDialog(context, ref, listaEspecialidades);
+                  //print(a.success);
+                  refrescar();
                 }, 
                 icon: const Icon(Icons.add_circle_outline_rounded),
                 label: const Text("Añadir nuevo doctor")

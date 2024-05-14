@@ -1,16 +1,21 @@
+import 'package:agenda/presentation/providers/doctores/doctores_repository_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:agenda/domain/entities/especialidad.dart';
 
 class AddDialogs {
 
-  static Future<dynamic> newDoctorDialog(BuildContext context, List<Especialidad> especialidades) {
+  static Future<dynamic> newDoctorDialog(BuildContext context, WidgetRef ref, List<Especialidad> especialidades) {
     String currentValue = especialidades.first.nombreEspecialidad;
+    final TextEditingController nombreController = TextEditingController();
+    final TextEditingController apellidoController = TextEditingController();
+
     final colors = Theme.of(context).colorScheme;
     final textStyle = Theme.of(context).textTheme;
 
-    return showDialog(context: context, 
+    return showDialog<String?>(context: context, 
       builder: (context) {
         return(AlertDialog(
           title: const Text("Añadir"),
@@ -23,13 +28,15 @@ class AddDialogs {
                   child: Text("Ingrese los datos del nuevo doctor.", style: textStyle.headlineSmall,),
                 ),
                 TextFormField(
+                  controller: nombreController,
                   decoration: const InputDecoration(labelText: 'Nombre'),
                   keyboardType: TextInputType.name,
                   maxLength: 30,
                   inputFormatters: [FilteringTextInputFormatter.allow(RegExp("[a-zA-ZáéíóúÁÉÍÓÚñÑ ]"))  ],
                 ),
                 TextFormField(
-                  decoration: const InputDecoration(labelText: 'Apellido'),
+                  controller: apellidoController,
+                  decoration: const InputDecoration(labelText: 'Apellidos'),
                   keyboardType: TextInputType.name,
                   maxLength: 40,
                   inputFormatters: [FilteringTextInputFormatter.allow(RegExp("[a-zA-ZáéíóúÁÉÍÓÚñÑ ]"))  ],
@@ -70,6 +77,13 @@ class AddDialogs {
             ),
             
             FilledButton(onPressed: () {
+              final nombre = nombreController.text;
+              final apellidos = apellidoController.text;
+              final especialidad = currentValue;
+              String especialidadId = especialidades.where((element) => element.nombreEspecialidad == especialidad).first.id.toString();
+
+              ref.read(doctoresRepositoryProvider).addDoctor(nombre, apellidos, especialidadId);
+              //TODO: guardar resultado
               Navigator.of(context).pop();
               }, child: const Text("Guardar")
             )
