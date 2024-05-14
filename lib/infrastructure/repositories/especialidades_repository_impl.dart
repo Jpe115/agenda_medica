@@ -17,4 +17,9 @@ class EspecialidadesRepositoryimpl extends EspecialidadesRepository {
   Future<PyResponse> deleteEspecialidad(int id) {
     return datasource.deleteEspecialidad(id);
   }
+  
+  @override
+  Future<PyResponse> addEspecialidad(String nombreEspecialidad) {
+    return datasource.addEspecialidad(nombreEspecialidad);
+  }
 }
