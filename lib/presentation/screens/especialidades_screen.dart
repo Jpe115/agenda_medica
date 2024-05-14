@@ -8,7 +8,7 @@ import 'package:agenda/presentation/widgets/widgets.dart';
 
 class EspecialidadesScreen extends ConsumerStatefulWidget {
 
-  static const name = "especialidades_screen";
+  static const name = "Especialidades";
 
   const EspecialidadesScreen({super.key});
 

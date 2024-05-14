@@ -8,7 +8,7 @@ import 'package:agenda/presentation/widgets/widgets.dart';
 
 class PacientesScreen extends ConsumerStatefulWidget {
 
-  static const name = "pacientes_screen";
+  static const name = "Pacientes";
 
   const PacientesScreen({super.key});
 

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class CitasScreen extends StatelessWidget {
 
-  static const name = "citas_screen";
+  static const name = "Citas";
 
   const CitasScreen({super.key});
 

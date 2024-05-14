@@ -4,7 +4,7 @@ import 'package:agenda/presentation/widgets/side_menu.dart';
 
 class HomeScreen extends StatelessWidget {
 
-  static const name = "home_screen";
+  static const name = "Home";
 
   const HomeScreen({super.key});
 
