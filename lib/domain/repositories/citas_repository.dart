@@ -3,7 +3,7 @@ import 'package:agenda/domain/entities/py_response.dart';
 
 abstract class CitasRepository {
 
-  Future<List<Cita>> getCitas();
+  Future<List<Cita>> getCitas(String year, String month);
 
   Future<PyResponse> deleteCita(int id);
 
