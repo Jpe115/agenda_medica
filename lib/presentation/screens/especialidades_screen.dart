@@ -1,3 +1,4 @@
+import 'package:agenda/presentation/widgets/dialogs/update_dialogs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -160,7 +161,11 @@ class _TableRowsState extends State<_TableRows> {
 
                   Padding(
                     padding: const EdgeInsets.all(7.0),
-                    child: IconButton.filled(onPressed: () {}, icon: const Icon(Icons.edit_rounded)),
+                    child: IconButton.filled(onPressed: () async{
+                      await UpdateDialogs.updateEspecialidadDialog(context, widget.ref, widget.especialidad);
+                      widget.refrescar();
+                    }, 
+                    icon: const Icon(Icons.edit_rounded)),
                   ),
 
                   IconButton.filled(onPressed: () async{
