@@ -107,12 +107,13 @@ class _TableHeaders extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final textStyle = Theme.of(context).textTheme;
+    final colors = Theme.of(context).colorScheme;
 
     return Table(
       border: TableBorder.all(width: 0.95),
       children: [
         TableRow(
-          decoration: BoxDecoration(color: Colors.deepPurple.shade100),
+          decoration: BoxDecoration(color: colors.inversePrimary),
           children: [
             TableCell(child: Padding(
               padding: const EdgeInsets.all(6.0),
