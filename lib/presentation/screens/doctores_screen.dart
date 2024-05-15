@@ -1,3 +1,4 @@
+import 'package:agenda/presentation/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -39,54 +40,58 @@ class DoctoresScreenState extends ConsumerState<DoctoresScreen> {
 
     final doctores = ref.watch(doctoresProvider);
     final especialidades = ref.watch(especialidadesProvider);
-    //final listaEspecialidades = especialidades.map(esp) =>
+    final doctoresColor = ref.watch(colorListProvider)[2];
+    final doctoresTheme = ThemeData(colorSchemeSeed: doctoresColor);
 
-    return Scaffold(
-      backgroundColor: Colors.grey.shade100,
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text(DoctoresScreen.name),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            AddContainer(listaEspecialidades: especialidades, ref: ref, refrescar: refrescar,),
-
-            const SizedBox(height: 13,),
-
-            SizedBox(
-              height: 531,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 14),
-                child: ListView.builder(
-                  itemCount: doctores.length + 1,
-                  itemBuilder: (BuildContext context, int index) {
-                    if (index == 0) {
-                    return const TableHeaders();
-                    }
-                    return TableRows(doctor: doctores[index - 1], ref: ref, refrescar: refrescar, especialidades: especialidades,);
-                  },
+    return Theme(
+      data: doctoresTheme,
+      child: Scaffold(
+        backgroundColor: Colors.grey.shade100,
+        appBar: AppBar(
+          backgroundColor: doctoresTheme.colorScheme.inversePrimary,
+          title: const Text(DoctoresScreen.name),
+        ),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              AddContainer(listaEspecialidades: especialidades, ref: ref, refrescar: refrescar,),
+      
+              const SizedBox(height: 13,),
+      
+              SizedBox(
+                height: 531,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 14),
+                  child: ListView.builder(
+                    itemCount: doctores.length + 1,
+                    itemBuilder: (BuildContext context, int index) {
+                      if (index == 0) {
+                      return const TableHeaders();
+                      }
+                      return TableRows(doctor: doctores[index - 1], ref: ref, refrescar: refrescar, especialidades: especialidades,);
+                    },
+                  ),
                 ),
               ),
-            ),
-
-            Row(
-              children: [
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 14),
-                  child: Text("Mostrando registros del 1 al 10, del total de 10"),
-                ),
-                const Spacer(),
-                TextButton(onPressed: () {}, child: const Text("Anterior")),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 12),
-                  child: TextButton(onPressed: () {}, child: const Text("Siguiente")),
-                ),
-              ],
-            ),
-
-            Container(color: Colors.amber, height: 70,)
-          ],
+      
+              Row(
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 14),
+                    child: Text("Mostrando registros del 1 al 10, del total de 10"),
+                  ),
+                  const Spacer(),
+                  TextButton(onPressed: () {}, child: const Text("Anterior")),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 12),
+                    child: TextButton(onPressed: () {}, child: const Text("Siguiente")),
+                  ),
+                ],
+              ),
+      
+              Container(color: Colors.amber, height: 70,)
+            ],
+          ),
         ),
       ),
     );
