@@ -1,3 +1,4 @@
+import 'package:agenda/presentation/providers/theme_provider.dart';
 import 'package:agenda/presentation/widgets/dialogs/update_dialogs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -35,51 +36,58 @@ class EspecialidadesScreenState extends ConsumerState<EspecialidadesScreen> {
 
     final especialidades = ref.watch(especialidadesProvider);
 
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text(EspecialidadesScreen.name),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            _AddContainer(ref: ref, refrescar: refrescar,),
+    final especialidadesColor = ref.watch(colorListProvider)[4];
+    final especialidadesTheme = ThemeData(colorSchemeSeed: especialidadesColor);
 
-            const SizedBox(height: 13,),
-
-            SizedBox(
-              height: 531,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 14),
-                child: ListView.builder(
-                  itemCount: especialidades.length + 1,
-                  itemBuilder: (BuildContext context, int index) {
-                    if (index == 0) {
-                    return const _TableHeaders();
-                    }
-                    return _TableRows(especialidad: especialidades[index - 1], ref: ref, refrescar: refrescar,);
-                  },
+    return Theme(
+      data: especialidadesTheme,
+      child: Scaffold(
+        backgroundColor: Colors.grey.shade100,
+        appBar: AppBar(
+          backgroundColor: especialidadesTheme.colorScheme.inversePrimary,
+          title: const Text(EspecialidadesScreen.name),
+        ),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              _AddContainer(ref: ref, refrescar: refrescar,),
+      
+              const SizedBox(height: 13,),
+      
+              SizedBox(
+                height: 531,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 14),
+                  child: ListView.builder(
+                    itemCount: especialidades.length + 1,
+                    itemBuilder: (BuildContext context, int index) {
+                      if (index == 0) {
+                      return const _TableHeaders();
+                      }
+                      return _TableRows(especialidad: especialidades[index - 1], ref: ref, refrescar: refrescar,);
+                    },
+                  ),
                 ),
               ),
-            ),
-
-            Row(
-              children: [
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 14),
-                  child: Text("Mostrando registros del 1 al 10, del total de 10"),
-                ),
-                const Spacer(),
-                TextButton(onPressed: () {}, child: const Text("Anterior")),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 12),
-                  child: TextButton(onPressed: () {}, child: const Text("Siguiente")),
-                ),
-              ],
-            ),
-
-            Container(color: Colors.amber, height: 70,)
-          ],
+      
+              Row(
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 14),
+                    child: Text("Mostrando registros del 1 al 10, del total de 10"),
+                  ),
+                  const Spacer(),
+                  TextButton(onPressed: () {}, child: const Text("Anterior")),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 12),
+                    child: TextButton(onPressed: () {}, child: const Text("Siguiente")),
+                  ),
+                ],
+              ),
+      
+              Container(color: Colors.amber, height: 70,)
+            ],
+          ),
         ),
       ),
     );

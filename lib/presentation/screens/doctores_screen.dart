@@ -40,7 +40,8 @@ class DoctoresScreenState extends ConsumerState<DoctoresScreen> {
 
     final doctores = ref.watch(doctoresProvider);
     final especialidades = ref.watch(especialidadesProvider);
-    final doctoresColor = ref.watch(colorListProvider)[2];
+    
+    final doctoresColor = ref.watch(colorListProvider)[1];
     final doctoresTheme = ThemeData(colorSchemeSeed: doctoresColor);
 
     return Theme(

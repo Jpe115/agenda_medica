@@ -1,5 +1,6 @@
 import 'package:agenda/domain/entities/cita.dart';
 import 'package:agenda/domain/entities/paciente.dart';
+import 'package:agenda/presentation/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -11,7 +12,7 @@ import 'package:agenda/presentation/providers/especialidades/especialidades_prov
 import 'package:agenda/presentation/providers/pacientes/pacientes_provider.dart';
 import 'package:agenda/presentation/widgets/dialogs/add_dialogs.dart';
 import 'package:agenda/presentation/widgets/dialogs/delete_dialogs.dart';
-import 'package:agenda/presentation/widgets/dialogs/update_dialogs.dart';
+//import 'package:agenda/presentation/widgets/dialogs/update_dialogs.dart';
 
 class CitasScreen extends ConsumerStatefulWidget {
 
@@ -48,52 +49,58 @@ class CitasScreenState extends ConsumerState<CitasScreen> {
     final pacientes = ref.watch(pacientesProvider);
     final citas = ref.watch(citasProvider);
 
-    return Scaffold(
-      backgroundColor: Colors.grey.shade100,
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text(CitasScreen.name),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            _AddContainer(listaEspecialidades: especialidades, ref: ref, refrescar: refrescar,),
+    final citasColor = ref.watch(colorListProvider)[3];
+    final citasTheme = ThemeData(colorSchemeSeed: citasColor);
 
-            const SizedBox(height: 13,),
-
-            SizedBox(
-              height: 531,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 14),
-                child: ListView.builder(
-                  itemCount: citas.length + 1,
-                  itemBuilder: (BuildContext context, int index) {
-                    if (index == 0) {
-                    return const _TableHeaders();
-                    }
-                    return _TableRows(doctor: doctores[index - 1], ref: ref, refrescar: refrescar, cita: citas[index - 1], paciente: pacientes[index - 1], especialidad: especialidades[index - 1],);
-                  },
+    return Theme(
+      data: citasTheme,
+      child: Scaffold(
+        backgroundColor: Colors.grey.shade100,
+        appBar: AppBar(
+          backgroundColor: citasTheme.colorScheme.inversePrimary,
+          title: const Text(CitasScreen.name),
+        ),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              _AddContainer(listaEspecialidades: especialidades, ref: ref, refrescar: refrescar,),
+      
+              const SizedBox(height: 13,),
+      
+              SizedBox(
+                height: 531,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 14),
+                  child: ListView.builder(
+                    itemCount: citas.length + 1,
+                    itemBuilder: (BuildContext context, int index) {
+                      if (index == 0) {
+                      return const _TableHeaders();
+                      }
+                      return _TableRows(doctor: doctores[index - 1], ref: ref, refrescar: refrescar, cita: citas[index - 1], paciente: pacientes[index - 1], especialidad: especialidades[index - 1],);
+                    },
+                  ),
                 ),
               ),
-            ),
-
-            Row(
-              children: [
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 14),
-                  child: Text("Mostrando registros del 1 al 10, del total de 10"),
-                ),
-                const Spacer(),
-                TextButton(onPressed: () {}, child: const Text("Anterior")),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 12),
-                  child: TextButton(onPressed: () {}, child: const Text("Siguiente")),
-                ),
-              ],
-            ),
-
-            Container(color: Colors.amber, height: 70,)
-          ],
+      
+              Row(
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 14),
+                    child: Text("Mostrando registros del 1 al 10, del total de 10"),
+                  ),
+                  const Spacer(),
+                  TextButton(onPressed: () {}, child: const Text("Anterior")),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 12),
+                    child: TextButton(onPressed: () {}, child: const Text("Siguiente")),
+                  ),
+                ],
+              ),
+      
+              Container(color: Colors.amber, height: 70,)
+            ],
+          ),
         ),
       ),
     );
