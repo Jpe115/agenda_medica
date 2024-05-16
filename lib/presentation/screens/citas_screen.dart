@@ -77,7 +77,10 @@ class CitasScreenState extends ConsumerState<CitasScreen> {
                       if (index == 0) {
                       return const _TableHeaders();
                       }
-                      return _TableRows(doctor: doctores[index - 1], ref: ref, refrescar: refrescar, cita: citas[index - 1], paciente: pacientes[index - 1], especialidad: especialidades[index - 1],);
+                      final Doctor doctor = doctores.firstWhere((doc) => doc.id == citas[index - 1].doctorId,);
+                      final Paciente paciente = pacientes.firstWhere((pac) => pac.id == citas[index - 1].pacienteId,);
+                      final Especialidad especialidad = especialidades.firstWhere((esp) => esp.id == citas[index - 1].especialidadId,);
+                      return _TableRows(doctor: doctor, ref: ref, refrescar: refrescar, cita: citas[index - 1], paciente: paciente, especialidad: especialidad);
                     },
                   ),
                 ),
