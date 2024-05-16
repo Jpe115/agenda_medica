@@ -63,7 +63,7 @@ class CitasScreenState extends ConsumerState<CitasScreen> {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              _AddContainer(listaEspecialidades: especialidades, ref: ref, refrescar: refrescar,),
+              _EspecialidadesContainer(listaEspecialidades: especialidades, ref: ref, refrescar: refrescar,),
       
               const SizedBox(height: 13,),
       
@@ -251,18 +251,22 @@ class _TableRowsState extends State<_TableRows> {
   }
 }
 
-class _AddContainer extends StatelessWidget {
+class _EspecialidadesContainer extends StatelessWidget {
 
   final List<Especialidad> listaEspecialidades;
   final WidgetRef ref;
   final VoidCallback refrescar;
 
-  const _AddContainer({
+  const _EspecialidadesContainer({
     required this.listaEspecialidades, required this.ref, required this.refrescar,
   });
 
   @override
   Widget build(BuildContext context) {
+
+    String currentValue = listaEspecialidades.first.nombreEspecialidad;
+    final colors = Theme.of(context).colorScheme;
+
     return Padding(
       padding: const EdgeInsets.all(13.0),
       child: Container(
@@ -274,20 +278,30 @@ class _AddContainer extends StatelessWidget {
           children: [
             const Padding(
               padding: EdgeInsets.symmetric(vertical: 7, horizontal: 15),
-              child: Text("Listado de doctores", style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),),
+              child: Text("Calendario para la especialidad:", style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 7, horizontal: 13),
-              child: FilledButton.icon(
-                onPressed: () async{
-                  //final PyResponse a = 
-                  await AddDialogs.newDoctorDialog(context, ref, listaEspecialidades);
-                  //print(a.success);
-                  refrescar();
-                }, 
-                icon: const Icon(Icons.add_circle_outline_rounded),
-                label: const Text("Añadir nuevo doctor")
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: StatefulBuilder(builder: (context, setState) {
+                return DropdownButton<String>(
+                  focusColor: Colors.transparent,
+                  dropdownColor: colors.inversePrimary,
+                  elevation: 4,
+                  value: currentValue,
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      currentValue = newValue!;
+                    });
+                  },
+                  items: listaEspecialidades
+                      .map<DropdownMenuItem<String>>((Especialidad value) {
+                    return DropdownMenuItem<String>(
+                      value: value.nombreEspecialidad,
+                      child: Text(value.nombreEspecialidad),
+                    );
+                  }).toList(),
+                );
+              },),
             )
           ],
         ),
