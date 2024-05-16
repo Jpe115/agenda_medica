@@ -218,7 +218,7 @@ class _TableRowsState extends State<_TableRows> {
             TableCell(verticalAlignment: TableCellVerticalAlignment.middle, 
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 7),
-                child: Text(widget.cita.fecha, style: textStyle.bodyLarge,),
+                child: Text(widget.cita.fecha.substring(0, 16), style: textStyle.bodyLarge,),
               )
             ),
             TableCell(verticalAlignment: TableCellVerticalAlignment.middle, 
