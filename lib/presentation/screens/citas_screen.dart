@@ -127,11 +127,11 @@ class _TableHeaders extends StatelessWidget {
           children: [
             TableCell(child: Padding(
               padding: const EdgeInsets.all(6.0),
-              child: Text("Nombre paciente", style: textStyle.titleLarge),
+              child: Text("Paciente", style: textStyle.titleLarge),
             )),
             TableCell(child: Padding(
               padding: const EdgeInsets.all(6.0),
-              child: Text("Nombre doctor", style: textStyle.titleLarge,),
+              child: Text("Doctor", style: textStyle.titleLarge,),
             )),
             TableCell(child: Padding(
               padding: const EdgeInsets.all(6.0),
@@ -197,13 +197,13 @@ class _TableRowsState extends State<_TableRows> {
             TableCell(verticalAlignment: TableCellVerticalAlignment.middle, 
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 7),
-                child: Text(widget.paciente.nombre, style: textStyle.bodyLarge,),
+                child: Text("${widget.paciente.nombre} ${widget.paciente.apellidos}", style: textStyle.bodyLarge,),
               ),
             ),
             TableCell(verticalAlignment: TableCellVerticalAlignment.middle, 
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 7),
-                child: Text(widget.doctor.nombre, style: textStyle.bodyLarge,),
+                child: Text("${widget.doctor.nombre} ${widget.doctor.apellidos}", style: textStyle.bodyLarge,),
               )
             ),
             TableCell(verticalAlignment: TableCellVerticalAlignment.middle, 
