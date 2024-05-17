@@ -1,6 +1,8 @@
+import 'package:agenda/config/helpers/formatos.dart';
 import 'package:agenda/domain/entities/cita.dart';
 import 'package:agenda/domain/entities/paciente.dart';
 import 'package:agenda/presentation/providers/theme_provider.dart';
+import 'package:agenda/presentation/widgets/dialogs/update_dialogs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -280,12 +282,6 @@ class _TableRows extends StatefulWidget {
 }
 
 class _TableRowsState extends State<_TableRows> {
-  String formatearHora(String hora) {
-    if (hora.length == 4) {
-      return '${hora.substring(0, 2)}:${hora.substring(2)}';
-    }
-    return '0${hora.substring(0, 1)}:${hora.substring(1)}';
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -337,7 +333,7 @@ class _TableRowsState extends State<_TableRows> {
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 7),
                 child: Text(
-                  formatearHora(widget.cita.hora),
+                  Formatos.formatearHora(widget.cita.hora),
                   style: textStyle.bodyLarge,
                 ),
               )),
@@ -348,7 +344,7 @@ class _TableRowsState extends State<_TableRows> {
                 padding: const EdgeInsets.all(7.0),
                 child: IconButton.filled(
                     onPressed: () async {
-                      //await UpdateDialogs.updateDoctorDialog(context, widget.ref, widget.especialidades, widget.doctor);
+                      await UpdateDialogs.updateCitaDialog(context, widget.ref, widget.cita, widget.doctor, widget.paciente);
                       widget.refrescar();
                     },
                     icon: const Icon(Icons.edit_rounded)),
@@ -356,7 +352,7 @@ class _TableRowsState extends State<_TableRows> {
               IconButton.filled(
                   onPressed: () async {
                     await DeleteDialogs.deleteCitaDialog(
-                        context, widget.ref, widget.doctor.id);
+                        context, widget.ref, widget.cita.id);
                     widget.refrescar();
                     setState(() {});
                   },

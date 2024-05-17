@@ -1,4 +1,7 @@
+import 'package:agenda/config/helpers/formatos.dart';
+import 'package:agenda/domain/entities/cita.dart';
 import 'package:agenda/domain/entities/paciente.dart';
+import 'package:agenda/presentation/providers/citas/citas_repository_provider.dart';
 import 'package:agenda/presentation/providers/especialidades/especialidades_repository_provider.dart';
 import 'package:agenda/presentation/providers/pacientes/pacientes_repository_provider.dart';
 import 'package:flutter/material.dart';
@@ -260,6 +263,130 @@ class UpdateDialogs {
                 else {
                   Navigator.of(context).pop();
                 }
+              }
+            }, child: const Text("Guardar"))
+          ],
+        ));
+      },
+    );
+  }
+  
+  static Future<dynamic> updateCitaDialog(BuildContext context, WidgetRef ref, Cita cita, Doctor doctor, Paciente paciente) {
+
+    final colors = Theme.of(context).colorScheme;
+    final textStyle = Theme.of(context).textTheme;
+
+    final TextEditingController pacienteController = TextEditingController(text: "${paciente.nombre} ${paciente.apellidos}");
+    final TextEditingController doctorController = TextEditingController(text: "${doctor.nombre} ${doctor.apellidos}");
+    final TextEditingController especialidadController = TextEditingController(text: doctor.especialidad);
+    //final TextEditingController telefonoController = TextEditingController(text: paciente.telefono);
+
+    final String initialFecha = cita.fecha;
+    final String initialHora = Formatos.formatearHora(cita.hora);
+    String currentHora = initialHora;
+
+    List<String> horas = [
+      "07:00",
+      "08:00",
+      "09:00",
+      "10:00",
+      "11:00",
+      "12:00",
+      "13:00",
+      "14:00",
+      "15:00",
+      "16:00",
+      "17:00",
+      "18:00",
+      "19:00",
+    ];
+
+    return showDialog(context: context, 
+      builder: (context) {
+        return(AlertDialog(
+          title: const Text("Editar"),
+          content: SingleChildScrollView(
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 70),
+                  child: Text("Ingrese los datos de fecha y hora actualizados de la cita." , style: textStyle.headlineSmall,),
+                ),
+                TextFormField(
+                  readOnly: true,
+                  controller: pacienteController,
+                  decoration: const InputDecoration(labelText: 'Paciente'),
+                  keyboardType: TextInputType.name,
+                  maxLength: 70,
+                  inputFormatters: [FilteringTextInputFormatter.allow(RegExp("[a-zA-ZáéíóúÁÉÍÓÚñÑ ]"))  ],
+                ),
+                TextFormField(
+                  readOnly: true,
+                  controller: doctorController,
+                  decoration: const InputDecoration(labelText: 'Doctor'),
+                  keyboardType: TextInputType.name,
+                  maxLength: 70,
+                  inputFormatters: [FilteringTextInputFormatter.allow(RegExp("[a-zA-ZáéíóúÁÉÍÓÚñÑ ]"))  ],
+                ),
+                TextFormField(
+                  readOnly: true,
+                  controller: especialidadController,
+                  decoration: const InputDecoration(labelText: 'Especialidad'),
+                  keyboardType: TextInputType.name,
+                  maxLength: 30,
+                  inputFormatters: [FilteringTextInputFormatter.allow(RegExp("[a-zA-ZáéíóúÁÉÍÓÚñÑ ]"))  ],
+                ),
+                // TextFormField(
+                //   controller: telefonoController,
+                //   decoration: const InputDecoration(labelText: 'Teléfono'),
+                //   keyboardType: TextInputType.phone,
+                //   maxLength: 13,
+                //   inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                // ),
+
+                Text("Hora", style: textStyle.bodyLarge,),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8),
+                  child: StatefulBuilder(builder: (context, setState) {
+                    return DropdownButton<String>(
+                      focusColor: Colors.transparent,
+                      dropdownColor: colors.inversePrimary,
+                      elevation: 4,
+                      value: currentHora,
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          currentHora = newValue!;
+                        });
+                      },
+                      items: horas
+                          .map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                    );
+                  },),
+                )
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Cancelar'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            
+            FilledButton(onPressed: () {
+              //final telefono = telefonoController.text;
+              if (initialHora != currentHora) {
+                ref.read(citasRepositoryProvider).updateCita(cita.id.toString(), doctor.id.toString(), paciente.id.toString(), cita.especialidadId.toString(), cita.fecha, currentHora);
+                Navigator.of(context).pop();
+              }
+              else {
+                Navigator.of(context).pop();
               }
             }, child: const Text("Guardar"))
           ],
