@@ -52,9 +52,6 @@ class CitaPydbDatasource extends CitasDatasource {
   Future<PyResponse> updateCita(String citaId, String doctorId, String pacienteId, String especialidadId, String fecha, String hora) async{
     final response = await dio.put("/citas/update", data: {
       "id": citaId,
-      "doctorId": doctorId,
-      "pacienteId": pacienteId,
-      "especialidadId": especialidadId,
       "fecha": fecha,
       "hora": hora
     }, options: Options(
