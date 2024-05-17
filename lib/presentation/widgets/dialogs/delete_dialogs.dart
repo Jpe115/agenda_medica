@@ -1,3 +1,4 @@
+import 'package:agenda/presentation/providers/citas/citas_repository_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -73,6 +74,31 @@ class DeleteDialogs {
             
             FilledButton(onPressed: () {
               ref.read(pacientesRepositoryProvider).deletepaciente(pacienteId);
+              Navigator.of(context).pop();
+              }, child: const Text("Eliminar")
+            )
+          ],
+        ));
+      },
+    );
+  }
+  
+  static Future<dynamic> deleteCitaDialog(BuildContext context, WidgetRef ref, int citaId) {
+    return showDialog(context: context, 
+      builder: (context) {
+        return(AlertDialog(
+          title: const Text("Eliminar cita"),
+          content: const Text("¿Está seguro que desea eliminar la cita seleccionada?"),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Cancelar'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            
+            FilledButton(onPressed: () {
+              ref.read(citasRepositoryProvider).deleteCita(citaId);
               Navigator.of(context).pop();
               }, child: const Text("Eliminar")
             )

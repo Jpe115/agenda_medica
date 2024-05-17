@@ -355,7 +355,7 @@ class _TableRowsState extends State<_TableRows> {
               ),
               IconButton.filled(
                   onPressed: () async {
-                    await DeleteDialogs.deleteDoctorDialog(
+                    await DeleteDialogs.deleteCitaDialog(
                         context, widget.ref, widget.doctor.id);
                     widget.refrescar();
                     setState(() {});
