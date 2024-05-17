@@ -82,11 +82,10 @@ class CitasScreenState extends ConsumerState<CitasScreen> {
                   daysOfWeekStyle: DaysOfWeekStyle(
                     decoration: BoxDecoration(
                       color: citasTheme.colorScheme.inversePrimary,
-                      //borderRadius: BorderRadius.horizontal(left: Radius.circular(11), right: Radius.circular(11))
-                      //shape: BoxShape.circle
                     ),
                   ),
                   calendarStyle: CalendarStyle(
+                      defaultTextStyle: const TextStyle(fontSize: 15),
                       weekendTextStyle: const TextStyle(color: Colors.red),
                       outsideDaysVisible: false,
                       cellMargin: const EdgeInsets.all(5),
@@ -94,7 +93,10 @@ class CitasScreenState extends ConsumerState<CitasScreen> {
                         color: Colors.grey.shade300,
                       )),
                   headerStyle: const HeaderStyle(
-                      formatButtonVisible: false, titleCentered: true),
+                      formatButtonVisible: false, 
+                      titleCentered: true,
+                      titleTextStyle: TextStyle(fontSize: 19.0),
+                    ),
                   firstDay: DateTime.utc(2010, 10, 16),
                   lastDay: DateTime.utc(2030, 3, 14),
                   focusedDay: _focusedDay,
