@@ -51,7 +51,7 @@ class CitasScreenState extends ConsumerState<CitasScreen> {
     final pacientes = ref.watch(pacientesProvider);
     final citas = ref.watch(citasProvider);
 
-    final citasColor = ref.watch(colorListProvider)[3];
+    final citasColor = ref.watch(colorListProvider)[6];
     final citasTheme = ThemeData(colorSchemeSeed: citasColor);
 
     return Theme(

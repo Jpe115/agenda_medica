@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
 const colorList = <Color>[
-  Colors.deepPurple,
+  Colors.teal,
   Colors.lime,
   Colors.blue,
-  Colors.deepOrange,
-  Colors.teal,
   Colors.brown,
+  Colors.deepPurple,
+  Colors.deepOrange,
   Colors.green,
   Colors.grey,
   Colors.pink
