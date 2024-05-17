@@ -27,7 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
         title: const Text('TableCalendar - Basics'),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(13.0),
+        padding: const EdgeInsets.all(16.0),
         child: TableCalendar(
           daysOfWeekHeight: 24,
           daysOfWeekStyle: const DaysOfWeekStyle(
