@@ -17,20 +17,29 @@ class Paciente {
   });
 
   factory Paciente.fromJson(Map<String, dynamic> json) => Paciente(
-        apellidos: json["apellido"],
-        correo: json["correo"],
-        edad: json["edad"],
-        id: json["id"],
-        nombre: json["nombre"],
-        telefono: json["telefono"],
-    );
+    apellidos: json["apellido"],
+    correo: json["correo"],
+    edad: json["edad"],
+    id: json["id"],
+    nombre: json["nombre"],
+    telefono: json["telefono"],
+  );
 
-    Map<String, dynamic> toJson() => {
-        "apellido": apellidos,
-        "correo": correo,
-        "edad": edad,
-        "id": id,
-        "nombre": nombre,
-        "telefono": telefono,
-    };
+  factory Paciente.fromOracleJson(Map<String, dynamic> json) => Paciente(
+    apellidos: json["APELLIDOS"],
+    correo: json["CORREO"],
+    edad: json["EDAD"],
+    id: json["ID"],
+    nombre: json["NOMBRE"],
+    telefono: json["TELEFONO"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "apellido": apellidos,
+    "correo": correo,
+    "edad": edad,
+    "id": id,
+    "nombre": nombre,
+    "telefono": telefono,
+  };
 }
